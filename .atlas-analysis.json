@@ -1,0 +1,84 @@
+{
+  "projectType": "frontend",
+  "projectName": "HTML Tags Checker",
+  "projectDescription": "A web-based tool to validate and verify HTML tag nesting according to W3C standards",
+  "theme": "almond",
+  "primaryColor": "#2f8ecd",
+  "lightColor": "#94cce4",
+  "darkColor": "#058bcf",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "concepts/html-nesting-rules",
+              "concepts/element-categories",
+              "concepts/validation-logic"
+            ]
+          },
+          {
+            "group": "Using the Tool",
+            "pages": [
+              "usage/validating-tags",
+              "usage/language-support",
+              "usage/examples"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/supported-elements",
+              "reference/nesting-rules",
+              "reference/best-practices"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Developer Guide",
+        "groups": [
+          {
+            "group": "Integration",
+            "pages": [
+              "developer/integration",
+              "developer/url-parameters",
+              "developer/customization"
+            ]
+          },
+          {
+            "group": "Contributing",
+            "pages": [
+              "developer/contributing",
+              "developer/code-structure"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Validates HTML tag nesting according to W3C standards",
+    "Supports bilingual interface (Spanish and English)",
+    "Real-time validation with detailed explanations",
+    "Comprehensive nesting rules reference with examples",
+    "Interactive modal with complete HTML5 element categories",
+    "URL parameter support for sharing validations",
+    "Accessible interface with ARIA labels and keyboard navigation"
+  ],
+  "publicApiSurface": [
+    "canContain(parentTag, childTag)",
+    "getElementType(tag)",
+    "changeLanguage(lang)",
+    "URL parameters: ?parent=div&child=p&lang=en"
+  ]
+}
