@@ -1,0 +1,507 @@
+---
+title: Best Practices for Valid HTML
+description: Guidelines and best practices for writing valid, semantic, and accessible HTML
+---
+
+## Introduction
+
+Writing valid HTML is more than just following syntax rules. It's about creating semantic, accessible, and maintainable code that works consistently across all browsers and assistive technologies.
+
+## Semantic HTML Principles
+
+### Use Appropriate Semantic Tags
+
+Always choose the HTML element that best represents the content's meaning, not just its appearance.
+
+```html
+<!-- Good: Semantic structure -->
+<header>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <article>
+    <h1>Article Title</h1>
+    <p>Article content...</p>
+  </article>
+</main>
+
+<footer>
+  <p>&copy; 2024 Company Name</p>
+</footer>
+
+<!-- Poor: Non-semantic structure -->
+<div class="header">
+  <div class="nav">
+    <div class="list">
+      <div class="item"><a href="/">Home</a></div>
+    </div>
+  </div>
+</div>
+```
+
+### Key Semantic Elements
+
+- `<header>` — Header section of a page or section
+- `<nav>` — Navigation links
+- `<main>` — Main content of the document (use once per page)
+- `<article>` — Self-contained composition
+- `<section>` — Thematic grouping of content
+- `<aside>` — Tangentially related content
+- `<footer>` — Footer section
+
+### Structural Clarity
+
+Each tag should have a clear semantic purpose. Avoid using elements solely for styling.
+
+```html
+<!-- Good -->
+<article>
+  <header>
+    <h1>Blog Post Title</h1>
+    <p class="meta">Published on <time datetime="2024-01-15">January 15, 2024</time></p>
+  </header>
+  <p>Content...</p>
+</article>
+
+<!-- Poor -->
+<div>
+  <div>
+    <span class="title">Blog Post Title</span>
+    <span>Published on January 15, 2024</span>
+  </div>
+  <span>Content...</span>
+</div>
+```
+
+## Accessibility First
+
+Semantic HTML improves screen reader support and benefits users with assistive technologies.
+
+### Use Proper Heading Hierarchy
+
+Headings should follow a logical order without skipping levels.
+
+```html
+<!-- Good: Proper hierarchy -->
+<h1>Page Title</h1>
+<h2>Main Section</h2>
+<h3>Subsection</h3>
+<h3>Another Subsection</h3>
+<h2>Another Main Section</h2>
+
+<!-- Poor: Skipped levels -->
+<h1>Page Title</h1>
+<h4>Subsection</h4>
+```
+
+### Provide Alternative Text
+
+Always include `alt` attributes for images.
+
+```html
+<!-- Good -->
+<img src="chart.jpg" alt="Sales chart showing 50% growth in Q4">
+
+<!-- Poor -->
+<img src="chart.jpg">
+```
+
+### Use Labels for Form Controls
+
+Ensure all form inputs have associated labels.
+
+```html
+<!-- Good: Explicit association -->
+<label for="email">Email:</label>
+<input type="email" id="email" name="email">
+
+<!-- Good: Implicit association -->
+<label>
+  Email:
+  <input type="email" name="email">
+</label>
+
+<!-- Poor: No label -->
+<input type="email" name="email" placeholder="Email">
+```
+
+### Add ARIA Attributes When Necessary
+
+Use ARIA attributes to enhance accessibility, but prefer semantic HTML when possible.
+
+```html
+<!-- Good: Semantic HTML (preferred) -->
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+  </ul>
+</nav>
+
+<!-- Acceptable: ARIA when needed -->
+<div role="navigation" aria-label="Main navigation">
+  <ul>
+    <li><a href="/">Home</a></li>
+  </ul>
+</div>
+```
+
+## Nesting Guidelines
+
+### Respect Content Models
+
+Understand what each element can contain based on its content model.
+
+<Accordion title="Content Model Categories">
+
+- **Flow content** — Most elements used in the body
+- **Phrasing content** — Text and text-level markup (inline elements)
+- **Heading content** — `<h1>` through `<h6>`
+- **Sectioning content** — `<article>`, `<section>`, `<nav>`, `<aside>`
+- **Interactive content** — Elements for user interaction
+
+</Accordion>
+
+### Avoid Invalid Combinations
+
+**Don't nest block elements inside inline elements** (with rare exceptions):
+
+```html
+<!-- INVALID -->
+<span>
+  <div>Block content</div>
+</span>
+
+<!-- Valid -->
+<div>
+  <span>Inline content</span>
+</div>
+```
+
+**Don't put block elements inside paragraphs**:
+
+```html
+<!-- INVALID -->
+<p>
+  <div>This breaks the paragraph</div>
+</p>
+
+<!-- Valid -->
+<div>
+  <p>First paragraph</p>
+  <p>Second paragraph</p>
+</div>
+```
+
+**Don't nest interactive elements**:
+
+```html
+<!-- INVALID -->
+<button>
+  <button>Click</button>
+</button>
+
+<a href="#">
+  <a href="#">Link</a>
+</a>
+
+<!-- Valid -->
+<button>Click</button>
+<a href="#">Link</a>
+```
+
+### Minimize Nesting Depth
+
+Use only the nesting levels necessary for your structure.
+
+```html
+<!-- Good: Minimal nesting -->
+<article>
+  <h2>Title</h2>
+  <p>Content</p>
+</article>
+
+<!-- Poor: Excessive nesting -->
+<div>
+  <div>
+    <div>
+      <div>
+        <h2>Title</h2>
+        <p>Content</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+## Common Patterns to Avoid
+
+<Warning>
+Avoid these anti-patterns:
+</Warning>
+
+### 1. Block Elements Inside `<p>`
+
+```html
+<!-- INVALID -->
+<p>
+  <div>This is wrong</div>
+</p>
+
+<!-- Valid -->
+<div>
+  <p>This is correct</p>
+</div>
+```
+
+### 2. Nested Interactive Elements
+
+```html
+<!-- INVALID -->
+<button>
+  <button>Nested button</button>
+</button>
+
+<a href="#">
+  <button>Button in link</button>
+</a>
+
+<!-- Valid -->
+<button>Click me</button>
+<a href="#">Link text</a>
+```
+
+### 3. Block Elements Inside Inline Wrappers
+
+```html
+<!-- INVALID -->
+<span>
+  <div>Block in inline</div>
+</span>
+
+<!-- Valid -->
+<div>
+  <span>Inline in block</span>
+</div>
+```
+
+### 4. Text Nodes as Direct Children of Lists
+
+```html
+<!-- INVALID -->
+<ul>
+  Direct text in list
+  <li>Item 1</li>
+  <li>Item 2</li>
+</ul>
+
+<!-- Valid -->
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+</ul>
+```
+
+### 5. Form Controls Outside `<form>` Without Attributes
+
+While technically valid in HTML5 with the `form` attribute, it's best practice to keep controls inside forms.
+
+```html
+<!-- Better -->
+<form id="myForm">
+  <input type="text" name="username">
+  <button type="submit">Submit</button>
+</form>
+
+<!-- Works but not recommended -->
+<input type="text" name="username" form="myForm">
+<form id="myForm">
+  <button type="submit">Submit</button>
+</form>
+```
+
+## Document Structure Best Practices
+
+### Proper Document Outline
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Title</title>
+</head>
+<body>
+  <header>
+    <h1>Site Title</h1>
+    <nav>
+      <!-- Navigation -->
+    </nav>
+  </header>
+  
+  <main>
+    <article>
+      <h2>Article Title</h2>
+      <!-- Content -->
+    </article>
+  </main>
+  
+  <footer>
+    <p>Footer content</p>
+  </footer>
+</body>
+</html>
+```
+
+### One `<main>` Per Page
+
+Use only one `<main>` element per page to identify the primary content.
+
+```html
+<!-- Good -->
+<body>
+  <header>...</header>
+  <main>
+    <!-- Main content -->
+  </main>
+  <footer>...</footer>
+</body>
+
+<!-- Poor: Multiple main elements -->
+<body>
+  <main>First main</main>
+  <main>Second main</main>
+</body>
+```
+
+### Use Sections Appropriately
+
+`<section>` should have a heading and represent a thematic grouping.
+
+```html
+<!-- Good -->
+<section>
+  <h2>Section Title</h2>
+  <p>Content...</p>
+</section>
+
+<!-- Poor: Section without heading -->
+<section>
+  <p>Content...</p>
+</section>
+
+<!-- Poor: Use div instead if no thematic grouping -->
+<div class="wrapper">
+  <p>Content...</p>
+</div>
+```
+
+## List and Table Best Practices
+
+### Lists Should Only Contain `<li>`
+
+```html
+<!-- Good -->
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+</ul>
+
+<!-- INVALID -->
+<ul>
+  <div>Not a list item</div>
+  <li>Item 1</li>
+</ul>
+```
+
+### Use Proper Table Structure
+
+```html
+<!-- Good: Proper table structure -->
+<table>
+  <caption>Monthly Sales</caption>
+  <thead>
+    <tr>
+      <th scope="col">Month</th>
+      <th scope="col">Sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>January</td>
+      <td>$10,000</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>Total</td>
+      <td>$10,000</td>
+    </tr>
+  </tfoot>
+</table>
+```
+
+## Form Best Practices
+
+### Group Related Fields
+
+```html
+<form>
+  <fieldset>
+    <legend>Personal Information</legend>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+  </fieldset>
+  
+  <button type="submit">Submit</button>
+</form>
+```
+
+### Use Appropriate Input Types
+
+```html
+<!-- Good: Specific input types -->
+<input type="email" name="email">
+<input type="tel" name="phone">
+<input type="date" name="birthday">
+<input type="number" name="age" min="0" max="120">
+
+<!-- Poor: Generic text inputs -->
+<input type="text" name="email">
+<input type="text" name="phone">
+```
+
+## Validation Tools
+
+Regularly validate your HTML to catch errors early:
+
+- **[W3C HTML Validator](https://validator.w3.org/)** — Official HTML validation tool
+- **[Browser DevTools](https://developer.chrome.com/docs/devtools/)** — Inspect HTML structure and accessibility
+- **[axe DevTools](https://www.deque.com/axe/devtools/)** — Accessibility testing
+- **[WAVE](https://wave.webaim.org/)** — Web accessibility evaluation tool
+
+## Summary
+
+<Note>
+**Key Takeaways:**
+
+1. **Use semantic HTML** — Choose elements based on meaning, not appearance
+2. **Respect nesting rules** — Understand content models and valid parent-child relationships
+3. **Prioritize accessibility** — Semantic HTML improves screen reader support
+4. **Minimize nesting** — Use only the structure you need
+5. **Validate regularly** — Use validation tools to catch errors
+6. **Separate concerns** — Use CSS for presentation, HTML for structure
+</Note>
+
+Understanding nesting rules and following these best practices helps you write valid, semantic, accessible, and maintainable HTML that works consistently across all browsers and assistive technologies.
+
+For a complete list of supported elements, see [Supported Elements](/reference/supported-elements). For detailed nesting rules, see [Nesting Rules](/reference/nesting-rules).

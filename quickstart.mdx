@@ -1,80 +1,371 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: Quickstart
+description: Get started with HTML Tags Checker in minutes - no installation required
 ---
 
-## Get started in three steps
+<Note>
+HTML Tags Checker runs entirely in your browser - no installation, server, or dependencies required. Just download and open!
+</Note>
 
-Get your documentation site running locally and make your first customization.
+## Installation
 
-### Step 1: Set up your local environment
+Get up and running with HTML Tags Checker in three simple steps:
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
+<Steps>
+  <Step title="Download the repository">
+    Clone or download the HTML Tags Checker repository to your computer:
     
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
+    ```bash
+    git clone https://github.com/DanielVillalbaD/HTML-tags-checker.git
+    cd HTML-tags-checker
+    ```
     
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
-
-### Step 2: Deploy your changes
-
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
+    Or download the ZIP file from GitHub and extract it to your preferred location.
+  </Step>
+  
+  <Step title="Open in your browser">
+    No build process or server setup needed! Simply open the `index.html` file in your web browser:
     
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+    ```bash
+    # On macOS
+    open index.html
+    
+    # On Linux
+    xdg-open index.html
+    
+    # On Windows
+    start index.html
+    ```
+    
+    Or just double-click the `index.html` file in your file explorer.
+  </Step>
+  
+  <Step title="Start validating">
+    The tool is now ready to use. Enter your parent and child tags to validate their nesting relationship.
+  </Step>
+</Steps>
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+## Basic Usage
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+Follow these steps to validate HTML tag nesting:
 
-### Step 3: Go live
+<Steps>
+  <Step title="Enter the parent tag">
+    Type the parent HTML tag name in the first input field (without angle brackets):
+    
+    ```
+    Example: div
+    ```
+    
+    <Tip>Tag names are case-insensitive. You can enter `div`, `DIV`, or `Div`.</Tip>
+  </Step>
+  
+  <Step title="Enter the child tag">
+    Type the child HTML tag name in the second input field:
+    
+    ```
+    Example: p
+    ```
+  </Step>
+  
+  <Step title="Click Validate">
+    Click the **Validate** button to check if the parent tag can contain the child tag.
+  </Step>
+  
+  <Step title="Review the results">
+    The tool displays:
+    - **Validation status**: ✓ Allowed, ✗ Not Allowed, or ⚠ Allowed with Warning
+    - **Explanation**: Why the nesting is valid or invalid
+    - **Code example**: A practical example of the nesting
+    
+    <Accordion title="Understanding validation results">
+      The validator provides three types of results:
+      
+      - **✓ Allowed (Green)**: The nesting is valid according to W3C standards
+      - **✗ Not Allowed (Red)**: The nesting violates HTML5 rules
+      - **⚠ Warning (Yellow)**: The nesting is technically allowed but may have caveats
+    </Accordion>
+  </Step>
+</Steps>
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+## Quick Examples
 
-## Next steps
+Try these common validation scenarios to get familiar with the tool:
 
-Now that you have your docs running, explore these key features:
+### Example 1: Valid Block Nesting
+
+**Test**: Can `<div>` contain `<p>`?
+
+**Steps**:
+1. Enter `div` in the parent tag field
+2. Enter `p` in the child tag field  
+3. Click Validate
+
+**Expected Result**: ✓ **Allowed**  
+**Explanation**: The `<div>` tag is a block element and can contain block or inline elements like `<p>`.
+
+```html
+<div>
+  <p>Sample content</p>
+</div>
+```
+
+### Example 2: Invalid Inline to Block
+
+**Test**: Can `<span>` contain `<div>`?
+
+**Steps**:
+1. Enter `span` in the parent tag field
+2. Enter `div` in the child tag field
+3. Click Validate
+
+**Expected Result**: ✗ **Not Allowed**  
+**Explanation**: The `<span>` tag is an inline element and cannot contain block elements like `<div>` according to HTML5 standards.
+
+### Example 3: Paragraph Restrictions
+
+**Test**: Can `<p>` contain `<div>`?
+
+**Steps**:
+1. Enter `p` in the parent tag field
+2. Enter `div` in the child tag field
+3. Click Validate
+
+**Expected Result**: ✗ **Not Allowed**  
+**Explanation**: The `<p>` tag can only contain inline content (text and inline elements), not block elements.
+
+### Example 4: Valid Inline Nesting
+
+**Test**: Can `<a>` contain `<span>`?
+
+**Steps**:
+1. Enter `a` in the parent tag field
+2. Enter `span` in the child tag field
+3. Click Validate
+
+**Expected Result**: ✓ **Allowed**  
+**Explanation**: The `<a>` tag can contain inline elements like `<span>`.
+
+```html
+<a href="#">
+  <span>Click me</span>
+</a>
+```
+
+### Example 5: Void Element Parent
+
+**Test**: Can `<img>` contain `<span>`?
+
+**Steps**:
+1. Enter `img` in the parent tag field
+2. Enter `span` in the child tag field
+3. Click Validate
+
+**Expected Result**: ✗ **Not Allowed**  
+**Explanation**: The `<img>` tag is a void element and cannot contain child elements.
+
+### Example 6: Table Structure
+
+**Test**: Can `<table>` contain `<tr>`?
+
+**Steps**:
+1. Enter `table` in the parent tag field
+2. Enter `tr` in the child tag field
+3. Click Validate
+
+**Expected Result**: ✓ **Allowed**  
+**Explanation**: The `<table>` tag can contain `<tr>` elements for table rows.
+
+```html
+<table>
+  <tr>
+    <td>Cell content</td>
+  </tr>
+</table>
+```
+
+### Example 7: List Elements
+
+**Test**: Can `<ul>` contain `<li>`?
+
+**Steps**:
+1. Enter `ul` in the parent tag field
+2. Enter `li` in the child tag field
+3. Click Validate
+
+**Expected Result**: ✓ **Allowed**  
+**Explanation**: The `<ul>` tag can contain `<li>` elements as list items.
+
+```html
+<ul>
+  <li>First item</li>
+  <li>Second item</li>
+</ul>
+```
+
+## Using the Language Switcher
+
+The tool supports both Spanish and English interfaces:
+
+1. Look for the language selector buttons in the top-right corner (ES | EN)
+2. Click your preferred language
+3. The entire interface updates instantly, including:
+   - Form labels
+   - Button text
+   - Validation messages
+   - Code examples
+   - Modal content
+
+<Info>
+The language preference is saved in the URL, so you can bookmark or share links with your preferred language.
+</Info>
+
+## Viewing the Nesting Rules Guide
+
+For a comprehensive reference of HTML nesting rules:
+
+1. Click the **"View nesting rules"** button below the title
+2. A modal opens with detailed information about:
+   - Element categories (block, inline, void)
+   - Specific nesting rules by element type
+   - Best practices for valid HTML
+3. Browse through the collapsible sections for the information you need
+4. Close the modal by:
+   - Clicking the × button
+   - Clicking outside the modal
+   - Pressing the Escape key
+
+<Tip>
+The nesting rules modal is fully keyboard-accessible with focus trapping and proper ARIA labels for screen readers.
+</Tip>
+
+## Advanced Features
+
+### URL Parameters
+
+You can share specific validations using URL parameters:
+
+```
+https://example.com/index.html?parent=div&child=p&lang=en
+```
+
+**Parameters**:
+- `parent` - The parent tag to validate
+- `child` - The child tag to validate  
+- `lang` - Interface language (`es` or `en`)
+
+When you load a URL with these parameters, the validation runs automatically.
+
+**Example URL**:
+```
+index.html?parent=span&child=div&lang=en
+```
+
+This will automatically validate whether `<span>` can contain `<div>` in English.
+
+<Info>
+Learn more about URL parameters in the [URL Parameters](/developer/url-parameters) documentation.
+</Info>
+
+### Keyboard Accessibility
+
+The tool is fully keyboard-accessible:
+
+- **Tab** - Navigate between form fields and buttons
+- **Enter** - Submit the validation form
+- **Escape** - Close the nesting rules modal
+- **Tab** (in modal) - Navigate modal content with focus trapping
+
+All interactive elements have appropriate ARIA labels for screen reader compatibility.
+
+## Common Use Cases
 
 <CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
+  <Card title="Learning HTML" icon="graduation-cap">
+    Students can test tag combinations to understand HTML structure and nesting rules interactively.
+  </Card>
+  
+  <Card title="Code Review" icon="magnifying-glass">
+    Quickly verify if a specific tag nesting pattern in your code follows W3C standards.
+  </Card>
+  
+  <Card title="Teaching" icon="chalkboard-user">
+    Teachers can use URL parameters to create pre-filled examples for students to explore.
+  </Card>
+  
+  <Card title="Debugging" icon="bug">
+    Identify why certain HTML structures aren't rendering as expected by checking nesting validity.
+  </Card>
 </CardGroup>
 
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="The page won't load">
+    - Ensure you're opening `index.html` (not `index.js` or other files)
+    - Try a different browser (Chrome, Firefox, Edge, Safari)
+    - Check that all three files are present: `index.html`, `index.js`, `styles.css`
+    - Clear your browser cache and reload
+  </Accordion>
+  
+  <Accordion title="Validation results seem incorrect">
+    - Remember that HTML5 nesting rules are specific and sometimes counterintuitive
+    - Check the [Nesting Rules Reference](/reference/nesting-rules) for detailed explanations
+    - Some rules differ from older HTML versions (HTML4, XHTML)
+    - The tool follows current W3C HTML5 specifications
+  </Accordion>
+  
+  <Accordion title="Language switcher not working">
+    - The language should switch instantly when you click ES or EN
+    - Try refreshing the page if the switch doesn't occur
+    - Check that JavaScript is enabled in your browser
+    - The default language is Spanish (`es`)
+  </Accordion>
+  
+  <Accordion title="Modal won't open or close">
+    - Try clicking the "View nesting rules" button again
+    - Press the Escape key to close the modal
+    - Refresh the page if the modal is stuck
+    - Check browser console for JavaScript errors
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+Now that you're familiar with the basics, explore more advanced topics:
+
+<CardGroup cols={2}>
+  <Card title="Core Concepts" icon="book-open" href="/concepts/html-nesting-rules">
+    Understand the underlying HTML nesting rules and element categories
+  </Card>
+  
+  <Card title="Usage Guide" icon="circle-question" href="/usage/validating-tags">
+    Learn detailed usage patterns and explore more examples
+  </Card>
+  
+  <Card title="Developer Guide" icon="code" href="/developer/integration">
+    Integrate the tool into your workflow or customize it for your needs
+  </Card>
+  
+  <Card title="Reference" icon="book" href="/reference/supported-elements">
+    Browse the complete reference of supported elements and rules
+  </Card>
+</CardGroup>
+
+## Pro Tips
+
+<Tip>
+**Bookmark validation URLs**: Add `?parent=div&child=p` to the URL and bookmark it to quickly test common patterns.
+</Tip>
+
+<Tip>
+**Use the modal guide**: The "View nesting rules" modal contains comprehensive examples and edge cases that can help you learn HTML faster.
+</Tip>
+
+<Tip>
+**Test edge cases**: Try unusual combinations like `<a>` containing `<button>` or `<label>` containing `<div>` to discover important HTML restrictions.
+</Tip>
+
+<Tip>
+**Switch languages**: If you're learning both English and Spanish, use the language switcher to see technical terms in both languages.
+</Tip>

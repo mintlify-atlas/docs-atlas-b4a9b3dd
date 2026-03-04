@@ -1,0 +1,324 @@
+---
+title: 'URL Parameters'
+description: 'Complete reference for URL parameters supported by HTML Tags Checker'
+---
+
+## Overview
+
+HTML Tags Checker supports URL parameters that allow you to pre-fill form fields, set the language, and automatically trigger validation. This is useful for creating direct links, embedding, or building automated workflows.
+
+## Available Parameters
+
+### parent
+
+Specifies the parent HTML tag to validate.
+
+**Type:** String  
+**Required:** No  
+**Example:** `parent=div`
+
+```
+https://your-domain.com/index.html?parent=div
+```
+
+This will pre-fill the parent tag field with "div".
+
+### child
+
+Specifies the child HTML tag to validate.
+
+**Type:** String  
+**Required:** No  
+**Example:** `child=p`
+
+```
+https://your-domain.com/index.html?child=p
+```
+
+This will pre-fill the child tag field with "p".
+
+### lang
+
+Sets the interface language.
+
+**Type:** String  
+**Accepted values:** `en` (English), `es` (Spanish)  
+**Default:** `es`  
+**Example:** `lang=en`
+
+```
+https://your-domain.com/index.html?lang=en
+```
+
+<Note>
+If an invalid language code is provided, the tool defaults to Spanish (`es`).
+</Note>
+
+## Parameter Behavior
+
+### Automatic Validation
+
+When both `parent` and `child` parameters are provided, the tool automatically validates the combination and displays results upon page load.
+
+```
+https://your-domain.com/index.html?parent=div&child=p&lang=en
+```
+
+This URL will:
+1. Load the page in English
+2. Pre-fill "div" as parent and "p" as child
+3. Automatically validate and show results
+
+### URL Updates
+
+The tool automatically updates the URL with current parameters when:
+- The user submits a validation
+- The user changes the language
+
+This allows users to bookmark or share specific validations.
+
+## Implementation Details
+
+### Reading URL Parameters
+
+The tool uses the `getUrlParams()` function to read parameters on page load:
+
+```javascript
+function getUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        parent: params.get('parent'),
+        child: params.get('child'),
+        lang: params.get('lang')
+    };
+}
+```
+
+### Updating URL Parameters
+
+The `updateUrlParams()` function updates the browser URL without reloading:
+
+```javascript
+function updateUrlParams(parentTag, childTag) {
+    const url = new URL(window.location);
+    url.searchParams.set('parent', parentTag);
+    url.searchParams.set('child', childTag);
+    url.searchParams.set('lang', currentLang);
+    window.history.replaceState({}, '', url);
+}
+```
+
+This uses the History API to update the URL without triggering a page reload.
+
+## Usage Examples
+
+### Example 1: Pre-filled English Validation
+
+Validate if `<a>` can contain `<div>` in English:
+
+```
+https://your-domain.com/index.html?parent=a&child=div&lang=en
+```
+
+**Result:** Shows that this is invalid according to HTML5 standards.
+
+### Example 2: Spanish Interface with Valid Nesting
+
+Check if `<ul>` can contain `<li>` in Spanish:
+
+```
+https://your-domain.com/index.html?parent=ul&child=li&lang=es
+```
+
+**Result:** Shows that this is valid (lists can contain list items).
+
+### Example 3: Void Element Check
+
+Check if `<img>` can contain `<p>`:
+
+```
+https://your-domain.com/index.html?parent=img&child=p&lang=en
+```
+
+**Result:** Shows that void elements cannot contain any children.
+
+### Example 4: Just Language Parameter
+
+Load the tool in English without pre-filled tags:
+
+```
+https://your-domain.com/index.html?lang=en
+```
+
+**Result:** Empty form in English interface.
+
+## Building URLs Programmatically
+
+### JavaScript URLSearchParams
+
+```javascript
+function buildValidationUrl(parent, child, lang = 'en') {
+  const baseUrl = 'https://your-domain.com/index.html';
+  const params = new URLSearchParams({
+    parent: parent,
+    child: child,
+    lang: lang
+  });
+  return `${baseUrl}?${params.toString()}`;
+}
+
+// Usage
+const url = buildValidationUrl('button', 'div', 'en');
+console.log(url);
+// Output: https://your-domain.com/index.html?parent=button&child=div&lang=en
+```
+
+### Python Example
+
+```python
+from urllib.parse import urlencode
+
+def build_validation_url(parent, child, lang='en'):
+    base_url = 'https://your-domain.com/index.html'
+    params = {
+        'parent': parent,
+        'child': child,
+        'lang': lang
+    }
+    return f"{base_url}?{urlencode(params)}"
+
+# Usage
+url = build_validation_url('p', 'span', 'en')
+print(url)
+# Output: https://your-domain.com/index.html?parent=p&child=span&lang=en
+```
+
+### PHP Example
+
+```php
+function buildValidationUrl($parent, $child, $lang = 'en') {
+    $baseUrl = 'https://your-domain.com/index.html';
+    $params = http_build_query([
+        'parent' => $parent,
+        'child' => $child,
+        'lang' => $lang
+    ]);
+    return "$baseUrl?$params";
+}
+
+// Usage
+$url = buildValidationUrl('div', 'section', 'es');
+echo $url;
+// Output: https://your-domain.com/index.html?parent=div&child=section&lang=es
+```
+
+## Common Patterns
+
+### Educational Links
+
+Create a set of common validation examples for learning:
+
+```html
+<h3>Valid Nesting Examples</h3>
+<ul>
+  <li><a href="?parent=div&child=p&lang=en">div → p</a></li>
+  <li><a href="?parent=ul&child=li&lang=en">ul → li</a></li>
+  <li><a href="?parent=table&child=tr&lang=en">table → tr</a></li>
+</ul>
+
+<h3>Invalid Nesting Examples</h3>
+<ul>
+  <li><a href="?parent=p&child=div&lang=en">p → div</a></li>
+  <li><a href="?parent=a&child=button&lang=en">a → button</a></li>
+  <li><a href="?parent=img&child=span&lang=en">img → span</a></li>
+</ul>
+```
+
+### QR Code Generation
+
+Generate QR codes for specific validations in educational materials:
+
+```javascript
+function generateQRCodeUrl(parent, child, lang = 'en') {
+  const validationUrl = buildValidationUrl(parent, child, lang);
+  return `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(validationUrl)}`;
+}
+
+// Create a QR code for "Can p contain div?"
+const qrUrl = generateQRCodeUrl('p', 'div', 'en');
+```
+
+### Batch Link Generator
+
+Generate multiple validation links at once:
+
+```javascript
+const testCases = [
+  { parent: 'div', child: 'p', description: 'Block containing block' },
+  { parent: 'span', child: 'div', description: 'Inline containing block' },
+  { parent: 'button', child: 'a', description: 'Interactive elements' }
+];
+
+testCases.forEach(test => {
+  const url = buildValidationUrl(test.parent, test.child, 'en');
+  console.log(`${test.description}: ${url}`);
+});
+```
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Always URL-encode tag names">
+    While most HTML tags are simple alphanumeric strings, always use URL encoding to handle edge cases:
+    
+    ```javascript
+    const tag = '<custom-element>';
+    const encoded = encodeURIComponent(tag);
+    ```
+  </Accordion>
+
+  <Accordion title="Validate tag names before generating URLs">
+    Ensure tag names are valid before creating links:
+    
+    ```javascript
+    function isValidTagName(tag) {
+      return /^[a-z][a-z0-9-]*$/i.test(tag);
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Use lowercase tag names">
+    HTML tag names are case-insensitive, but the tool normalizes them to lowercase:
+    
+    ```javascript
+    // Good
+    buildValidationUrl('div', 'p')
+    
+    // Also works, but not recommended
+    buildValidationUrl('DIV', 'P')
+    ```
+  </Accordion>
+
+  <Accordion title="Include language parameter for consistency">
+    Always specify the language parameter to ensure users see the interface in the expected language:
+    
+    ```javascript
+    // Good - explicit language
+    buildValidationUrl('div', 'p', 'en')
+    
+    // May default to Spanish
+    buildValidationUrl('div', 'p')
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Integration Guide" icon="code" href="/developer/integration">
+    Learn how to integrate the tool
+  </Card>
+  <Card title="Customization" icon="palette" href="/developer/customization">
+    Customize appearance and behavior
+  </Card>
+</CardGroup>

@@ -1,122 +1,86 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "HTML Tags Checker",
+  "theme": "almond",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#2f8ecd",
+    "light": "#94cce4",
+    "dark": "#058bcf"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "https://media.brand.dev/25fb1bed-60df-4172-b566-50d4b4f99e55.png",
+  "logo": {
+    "light": "https://media.brand.dev/c2ed817a-6fb9-4c64-9b4e-73578a081240.svg",
+    "dark": "https://media.brand.dev/c2ed817a-6fb9-4c64-9b4e-73578a081240.svg"
+  },
+  "navbar": {
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/DanielVillalbaD/HTML-tags-checker"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/DanielVillalbaD/HTML-tags-checker"
+    }
+  },
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Get Started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "introduction",
+              "quickstart"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Core Concepts",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "concepts/html-nesting-rules",
+              "concepts/element-categories",
+              "concepts/validation-logic"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Using the Tool",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "usage/validating-tags",
+              "usage/language-support",
+              "usage/examples"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Reference",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "reference/supported-elements",
+              "reference/nesting-rules",
+              "reference/best-practices"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "Developer Guide",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Integration",
             "pages": [
-              "api-reference/introduction"
+              "developer/integration",
+              "developer/url-parameters",
+              "developer/customization"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Contributing",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "developer/contributing",
+              "developer/code-structure"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
+    ]
   }
 }

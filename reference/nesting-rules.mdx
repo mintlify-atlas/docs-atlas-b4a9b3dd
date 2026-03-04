@@ -1,0 +1,527 @@
+---
+title: HTML Nesting Rules
+description: Complete reference of specific nesting rules for HTML elements according to W3C standards
+---
+
+## Introduction
+
+HTML5 establishes specific rules about how tags can be nested to ensure semantic correctness and consistent rendering across all browsers. Understanding these rules is fundamental to writing valid, maintainable HTML code.
+
+<Note>
+When unsure about nesting rules, validate your HTML using the [W3C HTML Validator](https://validator.w3.org/) and check the [HTML specification](https://html.spec.whatwg.org/).
+</Note>
+
+## General Nesting Principles
+
+### Block Elements
+
+**Block elements** can generally contain both block and inline elements.
+
+```html
+<!-- Valid: Block element containing block and inline elements -->
+<div>
+  <p>Paragraph content</p>
+  <span>Inline content</span>
+</div>
+```
+
+### Inline Elements
+
+**Inline elements** can only contain other inline elements and text content.
+
+```html
+<!-- Valid: Inline element containing inline elements -->
+<span>Text with <strong>emphasis</strong> and <a href="#">links</a></span>
+
+<!-- INVALID: Inline element containing block element -->
+<span>
+  <div>Block content</div>
+</span>
+```
+
+### Void Elements
+
+**Void elements** cannot contain any child elements or text content.
+
+```html
+<!-- Valid: Void elements are self-closing -->
+<img src="image.jpg" alt="Description">
+<br>
+<input type="text" name="username">
+
+<!-- INVALID: Void elements cannot have children -->
+<img>Content</img>
+```
+
+## Specific Element Rules
+
+<AccordionGroup>
+
+<Accordion title="Content Grouping Elements">
+
+### `<p>` (Paragraph)
+
+**Can contain**: Inline elements and text only
+
+**Cannot contain**: Block elements
+
+```html
+<!-- Valid -->
+<p>Text with <strong>emphasis</strong> and <a href="#">links</a>.</p>
+
+<!-- INVALID -->
+<p>
+  <div>This is wrong</div>
+</p>
+```
+
+### `<blockquote>` (Block Quotation)
+
+**Can contain**: Block and inline elements
+
+```html
+<!-- Valid -->
+<blockquote>
+  <p>The only way to do great work is to love what you do.</p>
+  <footer>— Steve Jobs</footer>
+</blockquote>
+```
+
+### `<pre>` (Preformatted Text)
+
+**Can contain**: Inline elements and text only
+
+**Cannot contain**: Block elements
+
+```html
+<!-- Valid -->
+<pre>Line 1
+Line 2
+Line 3 with <code>inline code</code></pre>
+```
+
+</Accordion>
+
+<Accordion title="Interactive Elements">
+
+### `<a>` (Anchor)
+
+**Can contain**: Inline elements and text (phrasing content)
+
+**Cannot contain**: Other `<a>` elements, interactive elements, or block elements
+
+```html
+<!-- Valid -->
+<a href="#">Text with <span>formatting</span></a>
+
+<!-- INVALID -->
+<a href="#">
+  <div>Block content</div>
+</a>
+
+<!-- INVALID -->
+<a href="#">
+  <a href="#">Nested link</a>
+</a>
+```
+
+### `<button>` (Button)
+
+**Can contain**: Inline elements and text only
+
+**Cannot contain**: Block elements or interactive elements
+
+```html
+<!-- Valid -->
+<button>Click me <span class="icon">→</span></button>
+
+<!-- INVALID -->
+<button>
+  <div>Content</div>
+</button>
+```
+
+### `<label>` (Form Label)
+
+**Can contain**: Inline elements and text
+
+**Cannot contain**: Block elements
+
+```html
+<!-- Valid -->
+<label>
+  Email: <input type="email" name="email">
+</label>
+
+<!-- Valid -->
+<label for="email-input">Email:</label>
+<input type="email" id="email-input" name="email">
+```
+
+</Accordion>
+
+<Accordion title="List Elements">
+
+### `<ul>` / `<ol>` (Lists)
+
+**Can contain**: Only `<li>` elements as direct children
+
+**Cannot contain**: Text nodes directly or other elements as direct children
+
+```html
+<!-- Valid -->
+<ul>
+  <li>First item</li>
+  <li>Second item</li>
+</ul>
+
+<!-- INVALID -->
+<ul>
+  Text directly in list
+  <li>Item</li>
+</ul>
+```
+
+### `<li>` (List Item)
+
+**Can contain**: Block and inline elements
+
+```html
+<!-- Valid -->
+<li>
+  <p>Paragraph content</p>
+  <p>Another paragraph</p>
+</li>
+```
+
+### `<dl>`, `<dt>`, `<dd>` (Description List)
+
+**`<dl>` contains**: Only `<dt>`/`<dd>` (or `<div>` wrapping pairs in HTML5)
+
+**`<dt>` contains**: Inline elements and text
+
+**`<dd>` contains**: Block and inline elements
+
+```html
+<!-- Valid -->
+<dl>
+  <dt>HTML</dt>
+  <dd>HyperText Markup Language</dd>
+  <dt>CSS</dt>
+  <dd>Cascading Style Sheets</dd>
+</dl>
+
+<!-- Valid (HTML5 with div wrappers) -->
+<dl>
+  <div>
+    <dt>Term</dt>
+    <dd>Definition</dd>
+  </div>
+</dl>
+```
+
+</Accordion>
+
+<Accordion title="Table Elements">
+
+### `<table>` (Table)
+
+**Can contain**: `<caption>`, `<colgroup>`, `<thead>`, `<tbody>`, `<tfoot>`, `<tr>` (in semantic order)
+
+```html
+<!-- Valid -->
+<table>
+  <caption>Sales Data</caption>
+  <thead>
+    <tr><th>Month</th><th>Sales</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>January</td><td>$1000</td></tr>
+  </tbody>
+</table>
+```
+
+### `<tr>`, `<th>`, `<td>` (Table Rows and Cells)
+
+**`<tr>` contains**: Only `<th>`/`<td>` elements
+
+**`<th>` and `<td>` contain**: Block and inline elements
+
+```html
+<!-- Valid -->
+<tr>
+  <th>Header 1</th>
+  <td>Data 1</td>
+  <td>Data 2</td>
+</tr>
+
+<!-- Valid: Cells can contain block elements -->
+<td>
+  <p>Paragraph content</p>
+  <span>Inline content</span>
+</td>
+
+<!-- INVALID: Text directly in tr -->
+<tr>
+  Direct text
+  <td>Cell</td>
+</tr>
+```
+
+</Accordion>
+
+<Accordion title="Form Elements">
+
+### `<form>` / `<fieldset>` (Forms)
+
+**Can contain**: Block, inline, and interactive elements
+
+**Best practice**: Use `<legend>` as the first child of `<fieldset>` for accessibility
+
+```html
+<!-- Valid -->
+<form action="/submit" method="POST">
+  <fieldset>
+    <legend>Personal Information</legend>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+  </fieldset>
+  <button type="submit">Submit</button>
+</form>
+```
+
+### `<select>` / `<datalist>` (Selection Controls)
+
+**`<select>` contains**: Only `<option>`/`<optgroup>` elements
+
+**`<datalist>` contains**: Only `<option>` elements for suggestions
+
+**Cannot contain**: Text nodes or other elements as direct children
+
+```html
+<!-- Valid -->
+<select name="category">
+  <optgroup label="Fruits">
+    <option>Apple</option>
+    <option>Banana</option>
+  </optgroup>
+</select>
+
+<!-- Valid -->
+<input type="text" list="colors">
+<datalist id="colors">
+  <option value="Red"></option>
+  <option value="Green"></option>
+</datalist>
+```
+
+### `<option>` (Select Option)
+
+**Can contain**: Text only
+
+### `<textarea>` (Text Area)
+
+**Can contain**: Text only
+
+</Accordion>
+
+<Accordion title="Heading Elements">
+
+### `<h1>` through `<h6>` (Headings)
+
+**Can contain**: Inline elements only
+
+**Cannot contain**: Block elements
+
+```html
+<!-- Valid -->
+<h1>Main Title with <span>Highlight</span></h1>
+
+<!-- INVALID -->
+<h1>
+  <div>Block content</div>
+</h1>
+```
+
+</Accordion>
+
+<Accordion title="Semantic Structural Elements">
+
+Semantic elements like `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, and `<footer>` are used to convey meaning and structure.
+
+**Can contain**: Block and inline elements
+
+```html
+<!-- Valid: Proper semantic structure -->
+<article>
+  <header>
+    <h1>Article Title</h1>
+    <p class="byline">By Author Name</p>
+  </header>
+  <section>
+    <p>Article content...</p>
+  </section>
+  <footer>
+    <p>Published: Date</p>
+  </footer>
+</article>
+```
+
+</Accordion>
+
+<Accordion title="Media & Interactive Widgets">
+
+### `<video>` / `<audio>` (Media Elements)
+
+**Can contain**: `<source>`, `<track>`, and fallback content (text)
+
+```html
+<!-- Valid -->
+<video controls width="320" height="240">
+  <source src="video.mp4" type="video/mp4">
+  <source src="video.webm" type="video/webm">
+  Your browser doesn't support HTML5 video.
+</video>
+```
+
+### `<picture>` (Responsive Images)
+
+**Can contain**: Only `<source>` elements and a single `<img>` (last child as fallback)
+
+**Cannot contain**: Other kinds of children
+
+```html
+<!-- Valid -->
+<picture>
+  <source media="(min-width: 1200px)" srcset="large.jpg">
+  <source media="(min-width: 768px)" srcset="medium.jpg">
+  <img src="small.jpg" alt="Description">
+</picture>
+```
+
+### `<details>` / `<summary>` (Disclosure Widget)
+
+**`<details>` contains**: `<summary>` (recommended as first child) and other content
+
+**`<summary>` contains**: Inline elements and text
+
+```html
+<!-- Valid -->
+<details open>
+  <summary>Click to expand</summary>
+  <p>Hidden content revealed when expanded.</p>
+</details>
+```
+
+### `<figure>` / `<figcaption>` (Figure)
+
+**`<figure>` contains**: Self-contained media with optional `<figcaption>`
+
+```html
+<!-- Valid -->
+<figure>
+  <img src="chart.jpg" alt="Sales growth">
+  <figcaption>Sales increased 50% year-over-year.</figcaption>
+</figure>
+```
+
+### `<dialog>` (Dialog Box)
+
+**Can contain**: Block and inline elements
+
+```html
+<!-- Valid -->
+<dialog id="modal">
+  <p>Modal content</p>
+  <button onclick="this.closest('dialog').close()">Close</button>
+</dialog>
+```
+
+</Accordion>
+
+</AccordionGroup>
+
+## Complete Specific Rules Reference
+
+The following table summarizes all specific nesting rules implemented in the HTML Tags Checker:
+
+| Parent Element | Allowed Children | Notes |
+|----------------|------------------|-------|
+| `<p>` | Inline elements only | Cannot contain block elements |
+| `<li>` | Block and inline elements | |
+| `<dt>` | Inline elements only | |
+| `<dd>` | Block and inline elements | |
+| `<thead>` | `<tr>` only | |
+| `<tbody>` | `<tr>` only | |
+| `<tfoot>` | `<tr>` only | |
+| `<tr>` | `<td>`, `<th>` only | |
+| `<table>` | `<caption>`, `<colgroup>`, `<thead>`, `<tbody>`, `<tfoot>`, `<tr>` | |
+| `<ul>` | `<li>` only | |
+| `<ol>` | `<li>` only | |
+| `<dl>` | `<dt>`, `<dd>` only | Can also contain `<div>` wrappers in HTML5 |
+| `<select>` | `<option>`, `<optgroup>` only | |
+| `<optgroup>` | `<option>` only | |
+| `<option>` | Text only | |
+| `<textarea>` | Text only | |
+| `<a>` | Inline elements and text | Cannot contain block elements or other `<a>` |
+| `<button>` | Inline elements and text | Cannot contain block elements or interactive elements |
+| `<label>` | Inline elements and text | Cannot contain block elements |
+| `<h1>` - `<h6>` | Inline elements only | |
+| `<video>` | `<source>`, `<track>`, text | |
+| `<audio>` | `<source>`, `<track>`, text | |
+| `<picture>` | `<source>` elements | Must have `<img>` as last child |
+| `<details>` | `<summary>`, block, inline | `<summary>` should be first child |
+| `<dialog>` | Block and inline elements | |
+| `<summary>` | Inline elements and text | |
+
+## Common Invalid Patterns
+
+<Warning>
+Avoid these common nesting mistakes:
+</Warning>
+
+- **Block elements inside `<p>`**
+  ```html
+  <!-- INVALID -->
+  <p><div>...</div></p>
+  ```
+
+- **Nested interactive elements**
+  ```html
+  <!-- INVALID -->
+  <button><button>...</button></button>
+  <a href="#"><a href="#">...</a></a>
+  ```
+
+- **Block elements inside inline wrappers**
+  ```html
+  <!-- INVALID -->
+  <span><div>...</div></span>
+  ```
+
+- **Text nodes as direct children of lists**
+  ```html
+  <!-- INVALID -->
+  <ul>
+    Direct text
+    <li>Item</li>
+  </ul>
+  ```
+
+- **Form controls outside `<form>` without the `form` attribute**
+  ```html
+  <!-- Works but not recommended without form attribute -->
+  <input type="text" name="username">
+  
+  <!-- Better -->
+  <form>
+    <input type="text" name="username">
+  </form>
+  ```
+
+## Validation Tools
+
+- [W3C HTML Validator](https://validator.w3.org/) — Official HTML validation
+- [Browser DevTools](https://developer.chrome.com/docs/devtools/) — Inspect HTML structure in the DOM
+
+For best practices on writing valid HTML, see the [Best Practices](/reference/best-practices) guide.

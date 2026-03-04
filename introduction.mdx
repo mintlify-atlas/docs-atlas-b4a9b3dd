@@ -1,0 +1,300 @@
+---
+title: Introduction
+description: Learn about the HTML Tags Checker - a web-based tool to validate HTML tag nesting according to W3C standards
+---
+
+## What is HTML Tags Checker?
+
+HTML Tags Checker is a web-based validation tool designed to help developers verify whether one HTML tag can properly contain another according to W3C standards. Built specifically for students and developers learning HTML, this tool provides instant feedback on tag nesting rules with clear explanations and code examples.
+
+<Info>
+This project was created by [aprendoeasy.com](https://aprendoeasy.com) for the KidCoder programming courses, launching in 2026.
+</Info>
+
+## Key Features
+
+<CardGroup cols={2}>
+  <Card title="Real-time Validation" icon="bolt">
+    Instantly validate parent-child tag relationships with comprehensive W3C-based rules
+  </Card>
+  
+  <Card title="Bilingual Support" icon="language">
+    Full interface available in both Spanish and English with easy language switching
+  </Card>
+  
+  <Card title="Detailed Explanations" icon="book">
+    Get clear messages explaining why certain tag combinations are valid or invalid
+  </Card>
+  
+  <Card title="Code Examples" icon="code">
+    See practical code examples for every validation result
+  </Card>
+</CardGroup>
+
+## How It Works
+
+The validator uses a comprehensive database of HTML5 nesting rules that categorizes elements into three main types:
+
+<Tabs>
+  <Tab title="Block Elements">
+    Block elements establish document structure and can typically contain both block and inline elements.
+    
+    **Examples include:**
+    - `<div>`, `<section>`, `<article>`
+    - `<header>`, `<footer>`, `<nav>`
+    - `<h1>` through `<h6>`, `<p>`, `<ul>`, `<ol>`
+    - `<table>`, `<form>`, `<blockquote>`
+
+    ```javascript
+    blockElements: [
+      'address', 'article', 'aside', 'blockquote', 'canvas', 'dd', 'div',
+      'dl', 'dt', 'fieldset', 'figcaption', 'figure', 'footer', 'form',
+      'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hr', 'li', 'main',
+      'nav', 'noscript', 'ol', 'p', 'pre', 'section', 'table', 'tfoot',
+      'ul', 'video', 'picture', 'audio', 'details', 'dialog', 'summary'
+    ]
+    ```
+  </Tab>
+  
+  <Tab title="Inline Elements">
+    Inline elements flow within text and should only contain other inline elements or text.
+    
+    **Examples include:**
+    - `<a>`, `<span>`, `<strong>`, `<em>`
+    - `<code>`, `<kbd>`, `<abbr>`
+    - `<button>`, `<label>`, `<input>`
+    - `<img>`, `<time>`, `<cite>`
+
+    ```javascript
+    inlineElements: [
+      'a', 'abbr', 'acronym', 'b', 'bdo', 'big', 'br', 'button', 'cite',
+      'code', 'dfn', 'em', 'i', 'img', 'input', 'kbd', 'label', 'map',
+      'object', 'output', 'q', 's', 'samp', 'select', 'small', 'span',
+      'strong', 'sub', 'sup', 'textarea', 'time', 'tt', 'u', 'var'
+    ]
+    ```
+  </Tab>
+  
+  <Tab title="Void Elements">
+    Void elements cannot contain any content and don't have closing tags.
+    
+    **Examples include:**
+    - `<img>`, `<input>`, `<br>`, `<hr>`
+    - `<meta>`, `<link>`, `<source>`
+    - `<area>`, `<embed>`, `<wbr>`
+
+    ```javascript
+    voidElements: [
+      'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+      'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'
+    ]
+    ```
+  </Tab>
+</Tabs>
+
+## Special Nesting Rules
+
+Beyond basic element types, the validator implements specific rules for elements with unique constraints:
+
+<Accordion title="Paragraph <p> Tags">
+  Paragraphs can only contain inline elements:
+  
+  ```javascript
+  'p': ['inline']
+  ```
+  
+  <Warning>
+  **Invalid:** `<p><div>Text</div></p>`
+  
+  **Valid:** `<p><strong>Text</strong></p>`
+  </Warning>
+</Accordion>
+
+<Accordion title="Anchor <a> Tags">
+  Links can contain inline elements and text, but not block elements:
+  
+  ```javascript
+  'a': ['inline', 'text']
+  ```
+  
+  ```html
+  <!-- Valid -->
+  <a href="#">Text with <span>formatting</span></a>
+  
+  <!-- Invalid -->
+  <a href="#">
+    <div>Block content</div>
+  </a>
+  ```
+</Accordion>
+
+<Accordion title="Table Elements">
+  Tables have strict hierarchical rules:
+  
+  ```javascript
+  'table': ['caption', 'colgroup', 'thead', 'tbody', 'tfoot', 'tr'],
+  'thead': ['tr'],
+  'tbody': ['tr'],
+  'tfoot': ['tr'],
+  'tr': ['td', 'th']
+  ```
+</Accordion>
+
+<Accordion title="List Elements">
+  Lists can only contain list items as direct children:
+  
+  ```javascript
+  'ul': ['li'],
+  'ol': ['li'],
+  'dl': ['dt', 'dd']
+  ```
+  
+  ```html
+  <!-- Valid -->
+  <ul>
+    <li>First item</li>
+    <li>Second item</li>
+  </ul>
+  
+  <!-- Invalid: text directly in list -->
+  <ul>
+    Text directly in list
+    <li>Item</li>
+  </ul>
+  ```
+</Accordion>
+
+## Validation Logic
+
+The core validation function (`canContain`) follows this decision tree:
+
+<Steps>
+  <Step title="Check for void parent elements">
+    If the parent is a void element (like `<img>` or `<input>`), it cannot contain any children.
+    
+    ```javascript
+    if (parentType === 'void') {
+      return {
+        valid: false,
+        message: "The <{parent}> tag is a void element and cannot contain child elements."
+      };
+    }
+    ```
+  </Step>
+  
+  <Step title="Check for void child elements">
+    If the child is a void element, it can be placed almost anywhere.
+    
+    ```javascript
+    if (childType === 'void') {
+      return {
+        valid: true,
+        message: "The <{parent}> tag can contain the void element <{child}>."
+      };
+    }
+    ```
+  </Step>
+  
+  <Step title="Apply specific rules">
+    Check if the parent has specific nesting rules defined in `specificRules`.
+    
+    ```javascript
+    if (parentType === 'specific') {
+      const allowedTypes = htmlNestingRules.specificRules[parentTag];
+      // Check if child tag or child type is allowed
+      if (allowedTypes.includes(childTag) || allowedTypes.includes(childType)) {
+        return { valid: true, ... };
+      }
+    }
+    ```
+  </Step>
+  
+  <Step title="Apply general rules">
+    Fall back to general block/inline rules:
+    - Block elements can contain block or inline elements
+    - Inline elements can only contain inline elements
+    
+    ```javascript
+    if (parentType === 'inline' && childType === 'block') {
+      return {
+        valid: false,
+        message: "Inline elements cannot contain block elements"
+      };
+    }
+    ```
+  </Step>
+</Steps>
+
+## Technology Stack
+
+The HTML Tags Checker is built with vanilla web technologies:
+
+- **HTML5**: Semantic structure with accessibility features
+- **CSS3**: Modern styling with CSS custom properties and animations
+- **JavaScript (ES6+)**: No frameworks - pure JavaScript for validation logic
+
+<Note>
+The tool requires no build process, npm packages, or dependencies. Simply open `index.html` in any modern browser.
+</Note>
+
+## Internationalization
+
+The application supports full bilingual functionality with a comprehensive translation system:
+
+```javascript
+const translations = {
+  es: { /* Spanish translations */ },
+  en: { /* English translations */ }
+};
+
+function changeLanguage(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  
+  // Update all elements with data-i18n attributes
+  document.querySelectorAll('[data-i18n]').forEach(element => {
+    const key = element.getAttribute('data-i18n');
+    if (translations[lang][key]) {
+      element.innerHTML = translations[lang][key];
+    }
+  });
+}
+```
+
+## Educational Purpose
+
+This project serves multiple educational objectives:
+
+<CardGroup cols={2}>
+  <Card title="Learn HTML Structure" icon="sitemap">
+    Understand how HTML elements nest and the DOM hierarchy
+  </Card>
+  
+  <Card title="W3C Standards" icon="check-circle">
+    Learn official web standards and validation rules
+  </Card>
+  
+  <Card title="Semantic HTML" icon="html5">
+    Discover proper element usage for better accessibility and SEO
+  </Card>
+  
+  <Card title="JavaScript Logic" icon="js">
+    Study real-world JavaScript validation and DOM manipulation
+  </Card>
+</CardGroup>
+
+## Open Source & Collaboration
+
+The HTML Tags Checker is open source under the MIT license, encouraging collaboration and improvement.
+
+<Tip>
+Contributions are welcome! If you find errors or have suggestions for improvement, you can:
+- Report issues on the project repository
+- Suggest new validation rules
+- Improve translations
+- Enhance the user interface
+</Tip>
+
+## Next Steps
+
+Ready to start using the HTML Tags Checker? Check out the [Quickstart Guide](/quickstart) to download and run the tool, or explore the comprehensive nesting rules built into the validator.

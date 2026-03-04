@@ -1,0 +1,238 @@
+---
+title: Supported HTML Elements
+description: Complete reference of all HTML elements supported by the HTML Tags Checker, categorized by type
+---
+
+## Overview
+
+The HTML Tags Checker supports a comprehensive list of HTML5 elements, categorized into three main types: block elements, inline elements, and void (self-closing) elements. Understanding these categories is essential for proper HTML validation.
+
+## Element Categories
+
+<Accordion title="Block Elements">
+
+Block elements establish the document structure. They typically start on a new line and expand to the available width of their container.
+
+### Key Characteristics
+
+- Generate line breaks before and after
+- Respect margin, padding, and border on all sides
+- Expand to the width of the parent container (unless explicitly sized)
+- Can contain both block and inline elements (with exceptions)
+
+### Complete List
+
+```html
+<address>, <article>, <aside>, <blockquote>, <canvas>, <dd>, <div>, <dl>, <dt>,
+<fieldset>, <figcaption>, <figure>, <footer>, <form>, <h1>, <h2>, <h3>, <h4>,
+<h5>, <h6>, <header>, <hr>, <li>, <main>, <nav>, <noscript>, <ol>, <p>, <pre>,
+<section>, <table>, <tfoot>, <ul>, <video>, <picture>, <audio>, <details>, <dialog>, <summary>
+```
+
+</Accordion>
+
+<Accordion title="Inline Elements">
+
+Inline elements flow within text without creating line breaks and only take the space they need.
+
+### Key Characteristics
+
+- Do not create line breaks before or after
+- Mainly respect horizontal margin and padding
+- Width/height typically have no effect (except cases like inline-block)
+- Should not contain block elements (rare HTML5 exceptions exist)
+
+### Complete List
+
+```html
+<a>, <abbr>, <acronym>, <b>, <bdo>, <big>, <br>, <button>, <cite>, <code>,
+<dfn>, <em>, <i>, <img>, <input>, <kbd>, <label>, <map>, <object>, <output>,
+<q>, <s>, <samp>, <select>, <small>, <span>, <strong>, <sub>, <sup>, <textarea>,
+<time>, <tt>, <u>, <var>, <source>, <track>
+```
+
+</Accordion>
+
+<Accordion title="Void / Self-Closing Elements">
+
+Void elements don't have closing tags and cannot contain any content.
+
+### Key Characteristics
+
+- Do not use closing tags (e.g., `<img>` not `<img></img>`)
+- XHTML self-closing syntax (`<img />`) is optional, not required in HTML5
+- Cannot contain child elements or text content
+
+### Complete List
+
+```html
+<area>, <base>, <br>, <col>, <embed>, <hr>, <img>, <input>, <keygen>, <link>,
+<meta>, <param>, <source>, <track>, <wbr>
+```
+
+</Accordion>
+
+## Elements by Functional Group
+
+### Content Grouping
+
+| Element | Type | Description |
+|---------|------|-------------|
+| `<div>` | Block | Generic container for flow content |
+| `<p>` | Block | Paragraph (inline content only) |
+| `<pre>` | Block | Preformatted text (preserves whitespace) |
+| `<blockquote>` | Block | Block quotation |
+| `<hr>` | Void | Thematic break / horizontal rule |
+
+### Text-Level Semantics
+
+| Element | Type | Description |
+|---------|------|-------------|
+| `<a>` | Inline | Hyperlink anchor |
+| `<span>` | Inline | Generic inline container |
+| `<strong>` | Inline | Strong importance |
+| `<em>` | Inline | Emphasis |
+| `<code>` | Inline | Code fragment |
+| `<abbr>` | Inline | Abbreviation |
+| `<cite>` | Inline | Citation |
+| `<kbd>` | Inline | Keyboard input |
+| `<samp>` | Inline | Sample output |
+| `<var>` | Inline | Variable |
+| `<time>` | Inline | Time/date |
+| `<b>` | Inline | Bring attention to |
+| `<i>` | Inline | Alternate voice |
+| `<u>` | Inline | Unarticulated annotation |
+| `<s>` | Inline | Strikethrough |
+| `<small>` | Inline | Side comment / small print |
+| `<sub>` | Inline | Subscript |
+| `<sup>` | Inline | Superscript |
+| `<q>` | Inline | Inline quotation |
+| `<dfn>` | Inline | Definition term |
+
+### Document Structure
+
+| Element | Type | Description |
+|---------|------|-------------|
+| `<header>` | Block | Header section |
+| `<footer>` | Block | Footer section |
+| `<main>` | Block | Main content |
+| `<nav>` | Block | Navigation section |
+| `<section>` | Block | Generic section |
+| `<article>` | Block | Self-contained composition |
+| `<aside>` | Block | Tangentially related content |
+| `<address>` | Block | Contact information |
+
+### Headings
+
+| Element | Type | Description |
+|---------|------|-------------|
+| `<h1>` | Block | Heading level 1 (highest) |
+| `<h2>` | Block | Heading level 2 |
+| `<h3>` | Block | Heading level 3 |
+| `<h4>` | Block | Heading level 4 |
+| `<h5>` | Block | Heading level 5 |
+| `<h6>` | Block | Heading level 6 (lowest) |
+
+### Lists
+
+| Element | Type | Description |
+|---------|------|-------------|
+| `<ul>` | Block | Unordered list |
+| `<ol>` | Block | Ordered list |
+| `<li>` | Block | List item |
+| `<dl>` | Block | Description list |
+| `<dt>` | Block | Description term |
+| `<dd>` | Block | Description details |
+
+### Tables
+
+| Element | Type | Description |
+|---------|------|-------------|
+| `<table>` | Block | Table |
+| `<thead>` | Block | Table head |
+| `<tbody>` | Block | Table body |
+| `<tfoot>` | Block | Table foot |
+| `<tr>` | Block | Table row |
+| `<th>` | Block | Table header cell |
+| `<td>` | Block | Table data cell |
+| `<caption>` | Block | Table caption |
+| `<colgroup>` | Block | Column group |
+| `<col>` | Void | Column |
+
+### Forms
+
+| Element | Type | Description |
+|---------|------|-------------|
+| `<form>` | Block | Form container |
+| `<fieldset>` | Block | Group of form controls |
+| `<legend>` | Inline | Caption for fieldset |
+| `<label>` | Inline | Label for form control |
+| `<input>` | Void | Input control |
+| `<button>` | Inline | Button |
+| `<select>` | Inline | Selection list |
+| `<option>` | Inline | Option in select |
+| `<optgroup>` | Inline | Option group |
+| `<textarea>` | Inline | Multi-line text input |
+| `<output>` | Inline | Calculation result |
+| `<datalist>` | Inline | Predefined options for input |
+
+### Media
+
+| Element | Type | Description |
+|---------|------|-------------|
+| `<img>` | Void | Image |
+| `<video>` | Block | Video player |
+| `<audio>` | Block | Audio player |
+| `<source>` | Void | Media source |
+| `<track>` | Void | Text track for media |
+| `<picture>` | Block | Responsive image container |
+| `<canvas>` | Block | Graphics canvas |
+| `<embed>` | Void | External content |
+| `<object>` | Inline | External object |
+| `<map>` | Inline | Image map |
+| `<area>` | Void | Image map area |
+
+### Interactive Elements
+
+| Element | Type | Description |
+|---------|------|-------------|
+| `<details>` | Block | Disclosure widget |
+| `<summary>` | Block | Summary for details |
+| `<dialog>` | Block | Dialog box |
+
+### Embedded Content
+
+| Element | Type | Description |
+|---------|------|-------------|
+| `<figure>` | Block | Self-contained content |
+| `<figcaption>` | Block | Caption for figure |
+
+### Metadata & Scripting
+
+| Element | Type | Description |
+|---------|------|-------------|
+| `<noscript>` | Block | Fallback for no script |
+| `<base>` | Void | Base URL for relative URLs |
+| `<link>` | Void | External resource link |
+| `<meta>` | Void | Metadata |
+
+### Special Elements
+
+| Element | Type | Description |
+|---------|------|-------------|
+| `<br>` | Void | Line break |
+| `<wbr>` | Void | Word break opportunity |
+| `<param>` | Void | Object parameter |
+| `<keygen>` | Void | Key-pair generator (deprecated) |
+
+## Advanced Content Categories
+
+HTML5 defines several content categories that determine which elements can be used where:
+
+- **Flow content**: Most elements used in the body
+- **Phrasing content**: Text and text-level markup (similar to inline)
+- **Heading content**: Headings (`<h1>` through `<h6>`)
+- **Sectioning content**: Defines scope of headings and footers
+- **Interactive content**: Content specifically for user interaction
+
+For detailed information about which elements can contain which, see the [Nesting Rules](/reference/nesting-rules) reference.

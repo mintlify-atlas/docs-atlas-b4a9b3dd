@@ -1,0 +1,466 @@
+---
+title: Element Categories
+description: Understanding block, inline, and void element categories in HTML5
+icon: grid
+---
+
+## Element Type System
+
+The HTML Tags Checker categorizes all HTML elements into three primary types to determine valid nesting relationships. This categorization is defined in the `htmlNestingRules` object in `index.js:544-603`.
+
+<Info>
+  **Element types are fundamental**: The validator first determines element types, then applies type-based and specific rules to validate nesting.
+</Info>
+
+## Block Elements
+
+Block elements establish the document structure. They typically start on a new line and expand to the available width of their container.
+
+### Complete List
+
+From `index.js:546-552`:
+
+```javascript
+blockElements: [
+    'address', 'article', 'aside', 'blockquote', 'canvas', 'dd', 'div',
+    'dl', 'dt', 'fieldset', 'figcaption', 'figure', 'footer', 'form',
+    'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hr', 'li', 'main',
+    'nav', 'noscript', 'ol', 'p', 'pre', 'section', 'table', 'tfoot',
+    'ul', 'video', 'picture', 'audio', 'details', 'dialog', 'summary'
+]
+```
+
+<AccordionGroup>
+  <Accordion title="View All Block Elements">
+    - `<address>` - Contact information
+    - `<article>` - Self-contained content
+    - `<aside>` - Tangentially related content
+    - `<blockquote>` - Extended quotation
+    - `<canvas>` - Graphics container
+    - `<dd>` - Definition description
+    - `<div>` - Generic container
+    - `<dl>` - Definition list
+    - `<dt>` - Definition term
+    - `<fieldset>` - Form field grouping
+    - `<figcaption>` - Figure caption
+    - `<figure>` - Self-contained media
+    - `<footer>` - Footer section
+    - `<form>` - Interactive form
+    - `<h1>` - `<h6>` - Headings
+    - `<header>` - Header section
+    - `<hr>` - Thematic break
+    - `<li>` - List item
+    - `<main>` - Main content
+    - `<nav>` - Navigation section
+    - `<noscript>` - No-script fallback
+    - `<ol>` - Ordered list
+    - `<p>` - Paragraph
+    - `<pre>` - Preformatted text
+    - `<section>` - Generic section
+    - `<table>` - Table
+    - `<tfoot>` - Table footer
+    - `<ul>` - Unordered list
+    - `<video>` - Video content
+    - `<picture>` - Responsive images
+    - `<audio>` - Audio content
+    - `<details>` - Disclosure widget
+    - `<dialog>` - Dialog box
+    - `<summary>` - Details summary
+  </Accordion>
+</AccordionGroup>
+
+### Key Characteristics
+
+<CardGroup cols={2}>
+  <Card title="Visual Layout" icon="arrows-left-right-to-line">
+    Generate line breaks before and after, expanding to container width
+  </Card>
+  
+  <Card title="Box Model" icon="box">
+    Respect margin, padding, and border on all sides
+  </Card>
+  
+  <Card title="Sizing" icon="ruler">
+    Width can be explicitly set; otherwise fills parent container
+  </Card>
+  
+  <Card title="Content" icon="layer-group">
+    Can contain both block and inline elements (with exceptions)
+  </Card>
+</CardGroup>
+
+### Nesting Behavior
+
+Block elements can generally contain both block and inline elements. From `index.js:860-867`:
+
+```javascript
+// General rules for block elements
+if (parentType === 'block') {
+    // Block elements can contain block or inline elements
+    return {
+        valid: true,
+        message: messages.blockCanContain.replace('{parent}', parentTag).replace('{child}', childTag),
+        warning: false
+    };
+}
+```
+
+<Warning>
+  **Important Exception**: Even though many block elements can contain other blocks, elements like `<p>`, `<h1>`-`<h6>`, and `<pre>` have specific rules that only allow inline content.
+</Warning>
+
+### Example Usage
+
+```html
+<!-- Block elements creating page structure -->
+<article>
+  <header>
+    <h1>Article Title</h1>
+    <p class="byline">By Author Name</p>
+  </header>
+  
+  <section>
+    <p>Article content with both block and inline elements.</p>
+    <div class="callout">
+      <p>Important information</p>
+    </div>
+  </section>
+  
+  <footer>
+    <p>Published: <time datetime="2024-03-04">March 4, 2024</time></p>
+  </footer>
+</article>
+```
+
+## Inline Elements
+
+Inline elements flow within text without creating line breaks and only take the space they need.
+
+### Complete List
+
+From `index.js:555-560`:
+
+```javascript
+inlineElements: [
+    'a', 'abbr', 'acronym', 'b', 'bdo', 'big', 'br', 'button', 'cite',
+    'code', 'dfn', 'em', 'i', 'img', 'input', 'kbd', 'label', 'map',
+    'object', 'output', 'q', 's', 'samp', 'select', 'small', 'span',
+    'strong', 'sub', 'sup', 'textarea', 'time', 'tt', 'u', 'var', 'source', 'track'
+]
+```
+
+<AccordionGroup>
+  <Accordion title="View All Inline Elements">
+    - `<a>` - Hyperlink
+    - `<abbr>` - Abbreviation
+    - `<acronym>` - Acronym (deprecated)
+    - `<b>` - Bold text
+    - `<bdo>` - Bidirectional override
+    - `<big>` - Larger text (deprecated)
+    - `<br>` - Line break
+    - `<button>` - Clickable button
+    - `<cite>` - Citation
+    - `<code>` - Code snippet
+    - `<dfn>` - Definition term
+    - `<em>` - Emphasis
+    - `<i>` - Italic text
+    - `<img>` - Image (also void)
+    - `<input>` - Form input (also void)
+    - `<kbd>` - Keyboard input
+    - `<label>` - Form label
+    - `<map>` - Image map
+    - `<object>` - Embedded object
+    - `<output>` - Calculation result
+    - `<q>` - Short quotation
+    - `<s>` - Strikethrough
+    - `<samp>` - Sample output
+    - `<select>` - Dropdown select
+    - `<small>` - Smaller text
+    - `<span>` - Generic inline container
+    - `<strong>` - Strong importance
+    - `<sub>` - Subscript
+    - `<sup>` - Superscript
+    - `<textarea>` - Multi-line text input
+    - `<time>` - Date/time
+    - `<tt>` - Teletype text (deprecated)
+    - `<u>` - Underlined text
+    - `<var>` - Variable
+    - `<source>` - Media source
+    - `<track>` - Text track
+  </Accordion>
+</AccordionGroup>
+
+### Key Characteristics
+
+<CardGroup cols={2}>
+  <Card title="Visual Layout" icon="text">
+    Do not create line breaks; flow within text content
+  </Card>
+  
+  <Card title="Box Model" icon="arrows-left-right">
+    Mainly respect horizontal margin and padding
+  </Card>
+  
+  <Card title="Sizing" icon="minimize">
+    Width and height typically have no effect (except inline-block)
+  </Card>
+  
+  <Card title="Content" icon="ban">
+    Cannot contain block elements (rare HTML5 exceptions exist)
+  </Card>
+</CardGroup>
+
+### Nesting Behavior
+
+Inline elements can only contain other inline elements or text. From `index.js:870-891`:
+
+```javascript
+// General rules for inline elements
+if (parentType === 'inline') {
+    // Inline elements can only contain inline elements or text
+    if (childType === 'inline') {
+        return {
+            valid: true,
+            message: messages.inlineCanContain.replace('{parent}', parentTag).replace('{child}', childTag),
+            warning: false
+        };
+    } else if (childType === 'void') {
+        return {
+            valid: true,
+            message: messages.inlineCanContainVoid.replace('{parent}', parentTag).replace('{child}', childTag),
+            warning: false
+        };
+    } else {
+        return {
+            valid: false,
+            message: messages.inlineCannotContain.replace('{parent}', parentTag).replace('{child}', childTag),
+            warning: false
+        };
+    }
+}
+```
+
+<Warning>
+  **Critical Rule**: Inline elements **cannot** contain block elements. This is one of the most common HTML validation errors.
+</Warning>
+
+### Example Usage
+
+```html
+<!-- Valid inline element usage -->
+<p>
+  This is a paragraph with <strong>bold text</strong>, 
+  <em>italic text</em>, and a <a href="#">link</a>.
+  You can also use <code>inline code</code> and 
+  <span class="highlight">styled spans</span>.
+</p>
+
+<!-- Invalid: block inside inline -->
+<span>
+  <div>This is invalid!</div>
+</span>
+```
+
+## Void Elements
+
+Void elements (also called self-closing or empty elements) have no closing tag and cannot contain any content.
+
+### Complete List
+
+From `index.js:563-566`:
+
+```javascript
+voidElements: [
+    'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+    'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'
+]
+```
+
+<AccordionGroup>
+  <Accordion title="View All Void Elements">
+    - `<area>` - Image map area
+    - `<base>` - Base URL for document
+    - `<br>` - Line break
+    - `<col>` - Table column
+    - `<embed>` - External content
+    - `<hr>` - Horizontal rule
+    - `<img>` - Image
+    - `<input>` - Form input
+    - `<keygen>` - Key-pair generator (deprecated)
+    - `<link>` - External resource link
+    - `<meta>` - Metadata
+    - `<param>` - Object parameter
+    - `<source>` - Media source
+    - `<track>` - Text track for media
+    - `<wbr>` - Word break opportunity
+  </Accordion>
+</AccordionGroup>
+
+### Key Characteristics
+
+<CardGroup cols={2}>
+  <Card title="No Closing Tag" icon="code">
+    Use `<img>` not `<img></img>`
+  </Card>
+  
+  <Card title="No Content" icon="circle-xmark">
+    Cannot contain any child elements or text
+  </Card>
+  
+  <Card title="Self-Closing Syntax" icon="slash">
+    XHTML syntax `<img />` is optional in HTML5
+  </Card>
+  
+  <Card title="Universal Placement" icon="check">
+    Can appear in almost any valid parent element
+  </Card>
+</CardGroup>
+
+### Validation Logic
+
+Void elements have special handling in the validator. From `index.js:785-800`:
+
+```javascript
+// If parent is a void element, it cannot contain anything
+if (parentType === 'void') {
+    return {
+        valid: false,
+        message: messages.voidParent.replace('{parent}', parentTag),
+        warning: false
+    };
+}
+
+// If child is a void element, it can be in almost any location
+if (childType === 'void') {
+    return {
+        valid: true,
+        message: messages.voidChild.replace('{parent}', parentTag).replace('{child}', childTag),
+        warning: false
+    };
+}
+```
+
+<Info>
+  **Void as Parent**: Always invalid - void elements cannot contain children
+  
+  **Void as Child**: Generally valid - void elements can be placed in most contexts
+</Info>
+
+### Example Usage
+
+```html
+<!-- Correct void element syntax -->
+<img src="photo.jpg" alt="Description">
+<br>
+<input type="text" name="username">
+<hr>
+<meta charset="UTF-8">
+
+<!-- XHTML syntax (optional in HTML5) -->
+<img src="photo.jpg" alt="Description" />
+<br />
+
+<!-- Invalid: void elements with closing tags -->
+<img src="photo.jpg" alt="Description"></img>
+<br></br>
+
+<!-- Invalid: content inside void elements -->
+<img>Content here</img>
+<input>Content here</input>
+```
+
+## Type Detection Logic
+
+The validator determines element types using the `getElementType()` function from `index.js:762-776`:
+
+```javascript
+function getElementType(tag) {
+    if (htmlNestingRules.voidElements.includes(tag)) {
+        return 'void';
+    } else if (htmlNestingRules.specificRules[tag]) {
+        return 'specific';
+    } else if (htmlNestingRules.blockElements.includes(tag)) {
+        return 'block';
+    } else if (htmlNestingRules.inlineElements.includes(tag)) {
+        return 'inline';
+    } else {
+        // By default, if not in the list, assume it's a block element
+        return 'block';
+    }
+}
+```
+
+<Steps>
+  <Step title="Check Void Elements">
+    First checks if element is in the `voidElements` array
+  </Step>
+  
+  <Step title="Check Specific Rules">
+    Then checks if element has specific nesting rules defined
+  </Step>
+  
+  <Step title="Check Block Elements">
+    Checks if element is in the `blockElements` array
+  </Step>
+  
+  <Step title="Check Inline Elements">
+    Checks if element is in the `inlineElements` array
+  </Step>
+  
+  <Step title="Default to Block">
+    If element is not found in any list, defaults to 'block' type
+  </Step>
+</Steps>
+
+<Note>
+  **Unknown Elements**: The validator assumes unknown elements are block-level by default. This is a safety mechanism for custom elements or newer HTML elements not yet in the lists.
+</Note>
+
+## Category Interaction Matrix
+
+<table>
+  <thead>
+    <tr>
+      <th>Parent Type</th>
+      <th>Can Contain Block</th>
+      <th>Can Contain Inline</th>
+      <th>Can Contain Void</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Block</strong></td>
+      <td>✅ Yes (usually)</td>
+      <td>✅ Yes</td>
+      <td>✅ Yes</td>
+    </tr>
+    <tr>
+      <td><strong>Inline</strong></td>
+      <td>❌ No</td>
+      <td>✅ Yes</td>
+      <td>✅ Yes</td>
+    </tr>
+    <tr>
+      <td><strong>Void</strong></td>
+      <td>❌ No</td>
+      <td>❌ No</td>
+      <td>❌ No</td>
+    </tr>
+  </tbody>
+</table>
+
+<Warning>
+  **Specific Rules Override**: Some block elements like `<p>`, `<h1>`-`<h6>` can only contain inline content despite being block elements themselves. Always check specific rules.
+</Warning>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="HTML Nesting Rules" icon="layers" href="/concepts/html-nesting-rules">
+    Comprehensive guide to specific element nesting rules
+  </Card>
+  
+  <Card title="Validation Logic" icon="code" href="/concepts/validation-logic">
+    Deep dive into how the validator processes these categories
+  </Card>
+</CardGroup>

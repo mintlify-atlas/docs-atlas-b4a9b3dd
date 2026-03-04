@@ -1,0 +1,222 @@
+---
+title: 'Integration Guide'
+description: 'Learn how to integrate HTML Tags Checker into your website or application'
+---
+
+## Overview
+
+HTML Tags Checker can be integrated into your website or application in several ways. This guide covers embedding options, URL parameters, and using the public API.
+
+## Embedding Options
+
+### Direct Link
+
+The simplest way to integrate HTML Tags Checker is to link directly to the tool:
+
+```html
+<a href="https://your-domain.com/index.html" target="_blank">
+  Validate HTML Tags
+</a>
+```
+
+### iFrame Embedding
+
+You can embed the tool using an iframe:
+
+```html
+<iframe 
+  src="https://your-domain.com/index.html"
+  width="100%" 
+  height="600" 
+  frameborder="0"
+  title="HTML Tags Checker"
+></iframe>
+```
+
+<Warning>
+When using iframes, ensure your server sends appropriate `X-Frame-Options` or `Content-Security-Policy` headers to allow embedding.
+</Warning>
+
+### Pre-filled Validation Links
+
+Create direct links with pre-filled tag values using URL parameters:
+
+```html
+<!-- Check if div can contain p -->
+<a href="https://your-domain.com/index.html?parent=div&child=p&lang=en">
+  Can div contain p?
+</a>
+
+<!-- Check if p can contain div -->
+<a href="https://your-domain.com/index.html?parent=p&child=div&lang=en">
+  Can p contain div?
+</a>
+```
+
+The tool will automatically validate and display results when opened with these parameters.
+
+## URL Parameters
+
+See the [URL Parameters](/developer/url-parameters) page for detailed documentation on all available parameters.
+
+## Public API Functions
+
+The HTML Tags Checker exposes several JavaScript functions that can be used programmatically:
+
+### canContain(parentTag, childTag)
+
+Validates whether a parent tag can contain a child tag according to W3C HTML5 standards.
+
+```javascript
+const validation = canContain('div', 'p');
+console.log(validation);
+// Output:
+// {
+//   valid: true,
+//   message: "The <div> tag is a block element and can contain block or inline elements like <p>.",
+//   warning: false
+// }
+```
+
+**Parameters:**
+- `parentTag` (string): The parent HTML tag name (without brackets)
+- `childTag` (string): The child HTML tag name (without brackets)
+
+**Returns:**
+- `valid` (boolean): Whether the nesting is valid
+- `message` (string): Detailed explanation in the current language
+- `warning` (boolean): Whether this is a warning case (allowed but potentially problematic)
+
+### getElementType(tag)
+
+Determines the type of an HTML element.
+
+```javascript
+const type = getElementType('div');
+console.log(type); // Output: "block"
+
+const type2 = getElementType('span');
+console.log(type2); // Output: "inline"
+
+const type3 = getElementType('img');
+console.log(type3); // Output: "void"
+```
+
+**Parameters:**
+- `tag` (string): The HTML tag name
+
+**Returns:**
+- String: One of `"block"`, `"inline"`, `"void"`, or `"specific"`
+
+### changeLanguage(lang)
+
+Changes the interface language dynamically.
+
+```javascript
+// Switch to English
+changeLanguage('en');
+
+// Switch to Spanish
+changeLanguage('es');
+```
+
+**Parameters:**
+- `lang` (string): Language code - `"en"` for English or `"es"` for Spanish
+
+## Integration Examples
+
+### Example 1: Custom Validation Form
+
+Create your own form that uses the validation API:
+
+```html
+<form id="customValidator">
+  <input type="text" id="parent" placeholder="Parent tag">
+  <input type="text" id="child" placeholder="Child tag">
+  <button type="submit">Validate</button>
+  <div id="result"></div>
+</form>
+
+<script src="index.js"></script>
+<script>
+document.getElementById('customValidator').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const parent = document.getElementById('parent').value;
+  const child = document.getElementById('child').value;
+  
+  const validation = canContain(parent, child);
+  
+  const resultDiv = document.getElementById('result');
+  resultDiv.innerHTML = `
+    <p><strong>${validation.valid ? '✓ Valid' : '✗ Invalid'}</strong></p>
+    <p>${validation.message}</p>
+  `;
+});
+</script>
+```
+
+### Example 2: Learning Tool with Multiple Tests
+
+Create a quiz or learning tool:
+
+```html
+<script src="index.js"></script>
+<script>
+const tests = [
+  { parent: 'div', child: 'p', expected: true },
+  { parent: 'p', child: 'div', expected: false },
+  { parent: 'ul', child: 'li', expected: true },
+  { parent: 'a', child: 'div', expected: false }
+];
+
+tests.forEach(test => {
+  const result = canContain(test.parent, test.child);
+  console.log(
+    `${test.parent} → ${test.child}: ${result.valid ? '✓' : '✗'}`,
+    result.message
+  );
+});
+</script>
+```
+
+### Example 3: Dynamic Link Generator
+
+Generate validation links dynamically:
+
+```javascript
+function generateValidationLink(parent, child, lang = 'en') {
+  const baseUrl = 'https://your-domain.com/index.html';
+  const params = new URLSearchParams({
+    parent: parent,
+    child: child,
+    lang: lang
+  });
+  return `${baseUrl}?${params.toString()}`;
+}
+
+// Usage
+const link = generateValidationLink('div', 'span', 'en');
+console.log(link);
+// Output: https://your-domain.com/index.html?parent=div&child=span&lang=en
+```
+
+## CORS Considerations
+
+If you're accessing the validation functions from a different domain, ensure your server is configured with appropriate CORS headers:
+
+```
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, OPTIONS
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="URL Parameters" icon="link" href="/developer/url-parameters">
+    Learn about all available URL parameters
+  </Card>
+  <Card title="Customization" icon="palette" href="/developer/customization">
+    Customize the look and feel
+  </Card>
+</CardGroup>

@@ -1,0 +1,414 @@
+---
+title: HTML Nesting Rules
+description: Comprehensive guide to HTML5 element nesting rules and validation standards
+icon: layers
+---
+
+## Understanding HTML Nesting
+
+HTML5 establishes specific rules about how tags can be nested to ensure semantic correctness and consistent rendering across all browsers. The HTML Tags Checker validates these rules based on W3C standards.
+
+<Info>
+  **Why Nesting Rules Matter**: Proper nesting ensures your HTML is valid, accessible, and renders consistently across different browsers and assistive technologies.
+</Info>
+
+## Element Type-Based Rules
+
+The validator categorizes elements into three primary types, each with distinct nesting capabilities:
+
+### Block Elements Can Contain Block or Inline
+
+Block elements are the structural foundation of HTML documents. They can contain both block-level and inline elements (with some exceptions).
+
+**Examples of valid nesting:**
+
+```html
+<div>
+  <p>A paragraph (inline content)</p>
+  <section>A section (block content)</section>
+</div>
+```
+
+<Check>Block elements include: `div`, `section`, `article`, `aside`, `header`, `footer`, `main`, `nav`, and many more.</Check>
+
+### Inline Elements Can Only Contain Inline
+
+Inline elements flow within text and can only contain other inline elements or text nodes. They **cannot** contain block-level elements.
+
+**Valid:**
+```html
+<span>
+  Text with <strong>emphasis</strong> and <em>italics</em>
+</span>
+```
+
+**Invalid:**
+```html
+<!-- This violates HTML5 standards -->
+<span>
+  <div>Block content</div>
+</span>
+```
+
+<Warning>
+  Inline elements cannot contain block elements. This is one of the most common HTML validation errors.
+</Warning>
+
+### Void Elements Cannot Contain Anything
+
+Void (self-closing) elements have no closing tag and cannot contain any content.
+
+```html
+<img src="photo.jpg" alt="Description">
+<br>
+<input type="text" name="username">
+```
+
+<Note>
+  The XHTML self-closing syntax (`<img />`) is optional in HTML5, not required.
+</Note>
+
+## Specific Element Rules
+
+Many elements have specific nesting rules that override the general type-based rules. The validator implements these using the `specificRules` configuration.
+
+### Content Grouping Elements
+
+#### Paragraphs (`<p>`)
+
+**Can contain:** Inline elements and text only  
+**Cannot contain:** Block elements
+
+```html
+<!-- Valid -->
+<p>Text with <strong>emphasis</strong> and <a href="#">links</a>.</p>
+
+<!-- Invalid -->
+<p>
+  <div>This is wrong</div>
+</p>
+```
+
+From `index.js:570`:
+```javascript
+'p': ['inline'], // Paragraphs can only contain inline elements
+```
+
+#### Blockquotes (`<blockquote>`)
+
+**Can contain:** Block and inline elements
+
+```html
+<blockquote>
+  <p>The only way to do great work is to love what you do.</p>
+  <footer>— Steve Jobs</footer>
+</blockquote>
+```
+
+#### Preformatted Text (`<pre>`)
+
+**Can contain:** Inline elements and text  
+**Cannot contain:** Block elements
+
+```html
+<pre>Line 1
+Line 2
+Line 3 with <code>inline code</code></pre>
+```
+
+### Interactive Elements
+
+#### Anchors (`<a>`)
+
+Links have special rules to prevent invalid interactive nesting.
+
+**Can contain:** Inline elements and text (phrasing content)  
+**Cannot contain:** Block elements, other `<a>` elements, or interactive elements
+
+```html
+<!-- Valid -->
+<a href="#">Text with <span>formatting</span></a>
+
+<!-- Invalid -->
+<a href="#">
+  <div>Block content</div>
+</a>
+```
+
+From `index.js:587`:
+```javascript
+'a': ['inline', 'text'],
+```
+
+The validator explicitly checks for block elements in links (`index.js:828-834`):
+```javascript
+if (parentTag === 'a' && childType === 'block') {
+    return {
+        valid: false,
+        message: messages.aBlock.replace('{parent}', parentTag).replace('{child}', childTag),
+        warning: false
+    };
+}
+```
+
+#### Buttons (`<button>`)
+
+**Can contain:** Inline elements and text only  
+**Cannot contain:** Block elements or other interactive elements
+
+```html
+<!-- Valid -->
+<button>Click me <span class="icon">→</span></button>
+
+<!-- Invalid -->
+<button>
+  <div>Content</div>
+</button>
+```
+
+#### Labels (`<label>`)
+
+**Can contain:** Inline elements and text  
+**Special capability:** Can associate controls by nesting or using `for`/`id`
+
+```html
+<!-- Method 1: Nesting -->
+<label>
+  Email: <input type="email" name="email">
+</label>
+
+<!-- Method 2: for/id association -->
+<label for="email-input">Email:</label>
+<input type="email" id="email-input" name="email">
+```
+
+### List Elements
+
+#### Unordered and Ordered Lists (`<ul>` / `<ol>`)
+
+**Can contain:** Only `<li>` elements as direct children  
+**Cannot contain:** Text nodes directly or other elements as direct children
+
+```html
+<!-- Valid -->
+<ul>
+  <li>First item</li>
+  <li>Second item</li>
+</ul>
+
+<!-- Invalid -->
+<ul>
+  Text directly in list
+  <li>Item</li>
+</ul>
+```
+
+From `index.js:579-580`:
+```javascript
+'ul': ['li'], // Unordered lists can only contain list items
+'ol': ['li'], // Ordered lists can only contain list items
+```
+
+#### List Items (`<li>`)
+
+**Can contain:** Block and inline elements
+
+```html
+<li>
+  <p>Paragraph content</p>
+  <p>Another paragraph</p>
+</li>
+```
+
+#### Definition Lists (`<dl>` / `<dt>` / `<dd>`)
+
+**`<dl>` contains:** Only `<dt>`/`<dd>` (or `<div>` wrappers in HTML5)  
+**`<dt>` contains:** Inline elements and text  
+**`<dd>` contains:** Block and inline elements
+
+```html
+<dl>
+  <dt>HTML</dt>
+  <dd>HyperText Markup Language</dd>
+  <dt>CSS</dt>
+  <dd>Cascading Style Sheets</dd>
+</dl>
+```
+
+### Table Elements
+
+#### Tables (`<table>`)
+
+**Can contain:** `<caption>`, `<colgroup>`, `<thead>`, `<tbody>`, `<tfoot>`, `<tr>` (in semantic order)
+
+```html
+<table>
+  <caption>Sales Data</caption>
+  <thead>
+    <tr><th>Month</th><th>Sales</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>January</td><td>$1000</td></tr>
+  </tbody>
+</table>
+```
+
+From `index.js:578`:
+```javascript
+'table': ['caption', 'colgroup', 'thead', 'tbody', 'tfoot', 'tr'],
+```
+
+#### Table Rows and Cells (`<tr>` / `<th>` / `<td>`)
+
+**`<tr>` contains:** Only `<th>`/`<td>` elements  
+**Table cells contain:** Block and inline elements
+
+```html
+<tr>
+  <th>Header 1</th>
+  <td>
+    <p>Paragraph content</p>
+    <span>Inline content</span>
+  </td>
+</tr>
+```
+
+### Form Elements
+
+#### Forms and Fieldsets (`<form>` / `<fieldset>`)
+
+**Can contain:** Block, inline, and interactive elements  
+**Best practice:** Use `<legend>` as the first child of `<fieldset>` for accessibility
+
+```html
+<form action="/submit" method="POST">
+  <fieldset>
+    <legend>Personal Information</legend>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+  </fieldset>
+  <button type="submit">Submit</button>
+</form>
+```
+
+#### Select and Datalist (`<select>` / `<datalist>`)
+
+**`<select>` contains:** Only `<option>`/`<optgroup>`  
+**`<datalist>` contains:** `<option>` elements for suggestions
+
+```html
+<select name="category">
+  <optgroup label="Fruits">
+    <option>Apple</option>
+    <option>Banana</option>
+  </optgroup>
+</select>
+```
+
+### Multimedia Elements
+
+#### Video and Audio (`<video>` / `<audio>`)
+
+**Can contain:** `<source>`, `<track>`, and fallback text content
+
+```html
+<video controls width="320" height="240">
+  <source src="video.mp4" type="video/mp4">
+  <source src="video.webm" type="video/webm">
+  Your browser doesn't support HTML5 video.
+</video>
+```
+
+From `index.js:596-597`:
+```javascript
+'video': ['source', 'track', 'text'],
+'audio': ['source', 'track', 'text'],
+```
+
+#### Picture (`<picture>`)
+
+**Can contain:** Only `<source>` elements and a single `<img>` (as last child for fallback)
+
+```html
+<picture>
+  <source media="(min-width: 1200px)" srcset="large.jpg">
+  <source media="(min-width: 768px)" srcset="medium.jpg">
+  <img src="small.jpg" alt="Description">
+</picture>
+```
+
+From `index.js:598`:
+```javascript
+'picture': ['source'],
+```
+
+#### Details and Summary (`<details>` / `<summary>`)
+
+**Can contain:** `<summary>` (recommended as first child) and other block/inline content
+
+```html
+<details open>
+  <summary>Click to expand</summary>
+  <p>Hidden content revealed when expanded.</p>
+</details>
+```
+
+## Common Invalid Patterns
+
+<Warning>
+  **Avoid These Common Mistakes**
+</Warning>
+
+The following patterns violate HTML5 nesting rules:
+
+1. **Block elements inside `<p>`**
+   ```html
+   <!-- Invalid -->
+   <p><div>...</div></p>
+   ```
+
+2. **Nested interactive elements**
+   ```html
+   <!-- Invalid -->
+   <button><button>...</button></button>
+   <a href="#"><a href="#">...</a></a>
+   ```
+
+3. **Block elements inside inline wrappers**
+   ```html
+   <!-- Invalid -->
+   <span><div>...</div></span>
+   ```
+
+4. **Text nodes as direct children of lists**
+   ```html
+   <!-- Invalid -->
+   <ul>
+     Direct text
+     <li>Item</li>
+   </ul>
+   ```
+
+## Validation Resources
+
+<CardGroup cols={2}>
+  <Card title="W3C HTML Validator" icon="check-circle" href="https://validator.w3.org/">
+    Official HTML validation service
+  </Card>
+  
+  <Card title="Browser DevTools" icon="browser" href="https://developer.chrome.com/docs/devtools/">
+    Inspect HTML structure in the DOM
+  </Card>
+</CardGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Element Categories" icon="grid" href="/concepts/element-categories">
+    Learn about block, inline, and void element categories
+  </Card>
+  
+  <Card title="Validation Logic" icon="code" href="/concepts/validation-logic">
+    Understand how the validator implements these rules
+  </Card>
+</CardGroup>

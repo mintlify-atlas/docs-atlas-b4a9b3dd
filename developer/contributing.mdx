@@ -1,0 +1,185 @@
+---
+title: 'Contributing Guide'
+description: 'Learn how to contribute to the HTML Tags Checker project'
+icon: 'code-pull-request'
+---
+
+## Welcome Contributors!
+
+HTML Tags Checker is an educational project designed for students of the KidCoder programming courses from AprendoEasy.com. We welcome contributions that help improve this tool and make it more valuable for learning HTML, CSS, and JavaScript.
+
+## Project Purpose
+
+This project serves as:
+- A practical tool to validate HTML tag nesting according to W3C standards
+- An educational resource to reinforce DOM structure learning
+- A hands-on example of how HTML tags are analyzed and validated
+- A practice validation tool for student projects
+
+<Note>
+The project is specifically designed for educational purposes and will be launched as part of the KidCoder 2026 course.
+</Note>
+
+## License
+
+This project is licensed under the **MIT License** (Copyright © 2025 Daniel Villalba).
+
+You are free to:
+- Use the software for any purpose
+- Modify and distribute copies
+- Sublicense and sell copies
+- Include it in your own projects
+
+The software is provided "as is" without warranty of any kind. See the LICENSE file for full details.
+
+## How to Contribute
+
+### Getting Started
+
+1. **Fork the repository** to your own GitHub account
+2. **Clone your fork** to your local machine
+3. **Create a new branch** for your feature or bug fix
+4. **Make your changes** following our code style guidelines
+5. **Test your changes** thoroughly
+6. **Submit a pull request** with a clear description of your changes
+
+### Setting Up the Project
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/html-tags-checker.git
+
+# Navigate to the project directory
+cd html-tags-checker
+
+# Open index.html in your browser
+# No build process required - it's a pure HTML/CSS/JS project!
+```
+
+## Code Style Guidelines
+
+### JavaScript
+
+- Use **camelCase** for variable and function names
+- Use **descriptive names** that explain the purpose
+- Add **JSDoc comments** for complex functions
+- Follow the existing code structure and formatting
+- Use **ES6+ features** where appropriate (const, let, arrow functions)
+
+### HTML
+
+- Use **semantic HTML5** elements
+- Include **ARIA attributes** for accessibility
+- Follow **proper indentation** (4 spaces)
+- Use **data attributes** for internationalization (`data-i18n`)
+
+### CSS
+
+- Use **CSS custom properties** (variables) defined in `:root`
+- Follow the **BEM-like naming** conventions where applicable
+- Add **comments** for major sections
+- Ensure **responsive design** with media queries
+- Support **reduced motion** preferences
+
+## Testing Your Changes
+
+### Manual Testing Checklist
+
+- [ ] Test in multiple browsers (Chrome, Firefox, Safari, Edge)
+- [ ] Test language switching (ES/EN)
+- [ ] Test parent/child tag validation with various combinations
+- [ ] Test keyboard navigation and accessibility
+- [ ] Test the modal rules display
+- [ ] Verify responsive design on mobile devices
+- [ ] Check for console errors
+- [ ] Test URL parameter handling
+
+### Validation Testing Examples
+
+Test these common scenarios:
+- Valid: `<div>` containing `<p>`
+- Invalid: `<p>` containing `<div>`
+- Valid: `<ul>` containing `<li>`
+- Invalid: `<ul>` containing `<div>` directly
+- Special cases: void elements, interactive elements
+
+## Areas for Contribution
+
+### High Priority
+
+- **Bug fixes**: Report or fix validation errors
+- **Translation improvements**: Enhance ES/EN translations
+- **Accessibility**: Improve keyboard navigation and screen reader support
+- **New HTML5 elements**: Add support for newer elements
+- **Mobile experience**: Enhance responsive design
+
+### Feature Ideas
+
+- Additional language support
+- Export validation results
+- Batch validation for multiple tag pairs
+- History of previous validations
+- Visual representation of nesting rules
+- Integration with code editors
+
+### Documentation
+
+- Improve code comments
+- Add more examples to the rules modal
+- Create tutorial videos
+- Write blog posts about the project
+
+## Pull Request Process
+
+1. **Update documentation** if you're changing functionality
+2. **Ensure your code works** across different browsers
+3. **Follow the existing code style** and patterns
+4. **Write a clear PR description** explaining:
+   - What problem you're solving
+   - How your changes address it
+   - Any testing you've done
+5. **Be responsive** to code review feedback
+6. **Keep PRs focused** - one feature or fix per PR
+
+## Code Review Expectations
+
+- Reviews may take a few days - please be patient
+- Reviewers will check for code quality, accessibility, and educational value
+- You may be asked to make changes before merging
+- All feedback is meant to improve the project
+
+## Getting Help
+
+If you have questions or need guidance:
+
+- Open an issue on GitHub
+- Contact the tutors at AprendoEasy.com
+- Check the code structure documentation
+- Review existing code for examples
+
+## Community Guidelines
+
+- **Be respectful** and welcoming to all contributors
+- **Be patient** with beginners - this is an educational project
+- **Provide constructive feedback** in code reviews
+- **Share knowledge** and help others learn
+- **Follow the Code of Conduct**
+
+## Recognition
+
+All contributors will be:
+- Listed in the project's contributor list
+- Acknowledged in release notes
+- Part of the AprendoEasy.com learning community
+
+<Info>
+Remember: This project is designed for learning. Don't hesitate to ask questions or propose improvements, even if they seem small!
+</Info>
+
+## Thank You!
+
+Your contributions help students around the world learn web development. Thank you for being part of this educational initiative!
+
+---
+
+© AprendoEasy.com - Use under MIT license, collaborate on the project, and share it with your classmates.

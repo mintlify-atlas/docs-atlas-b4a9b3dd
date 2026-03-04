@@ -1,0 +1,239 @@
+---
+title: 'Language Support'
+description: 'Switch between Spanish and English interfaces with bilingual validation support'
+---
+
+The HTML Tags Checker provides full bilingual support, allowing you to use the tool in either Spanish or English with seamless language switching.
+
+## Available Languages
+
+The validator supports two languages:
+
+<CardGroup cols={2}>
+  <Card title="Spanish (ES)" icon="language">
+    Default language with complete Spanish translations for all interface elements, messages, and documentation.
+  </Card>
+  <Card title="English (EN)" icon="language">
+    Full English translations matching the Spanish interface with culturally appropriate examples.
+  </Card>
+</CardGroup>
+
+## Switching Languages
+
+<Steps>
+  <Step title="Locate the language selector">
+    The language toggle buttons appear in the top-right corner of the page:
+    
+    ```
+    [ES] [EN]
+    ```
+    
+    The active language is highlighted.
+  </Step>
+
+  <Step title="Click your preferred language">
+    Click **ES** for Spanish or **EN** for English. The interface updates immediately.
+  </Step>
+
+  <Step title="Language persists in URL">
+    Your language choice is saved in the URL parameter `lang=es` or `lang=en`, so bookmarks and shared links preserve the language.
+  </Step>
+</Steps>
+
+## What Gets Translated
+
+When you switch languages, the following elements update automatically:
+
+### Interface Elements
+
+<Tabs>
+  <Tab title="Spanish">
+    - **Título**: HTML Tag Validator
+    - **Subtítulo**: Verifica si una etiqueta HTML puede contener a otra según los estándares W3C
+    - **Etiqueta Padre**: Input label for parent tag
+    - **Etiqueta Hija**: Input label for child tag
+    - **Validar**: Submit button text
+    - **Ver reglas de anidamiento**: Button to open rules guide
+  </Tab>
+
+  <Tab title="English">
+    - **Title**: HTML Tag Validator
+    - **Subtitle**: Check if an HTML tag can contain another according to W3C standards
+    - **Parent Tag**: Input label for parent tag
+    - **Child Tag**: Input label for child tag
+    - **Validate**: Submit button text
+    - **View nesting rules**: Button to open rules guide
+  </Tab>
+</Tabs>
+
+### Validation Results
+
+Result titles and statuses adapt to your language:
+
+| English | Spanish |
+|---------|--------|
+| Allowed | Permitido |
+| Not allowed | No permitido |
+| Allowed with warning | Permitido con advertencia |
+
+### Validation Messages
+
+All validation messages are fully translated with context-appropriate explanations:
+
+<Accordion title="Spanish Example">
+  ```
+  La etiqueta <div> es un elemento de bloque y puede contener 
+  elementos de bloque o en línea como <p>.
+  ```
+</Accordion>
+
+<Accordion title="English Example">
+  ```
+  The <div> tag is a block element and can contain block or 
+  inline elements like <p>.
+  ```
+</Accordion>
+
+### Code Examples
+
+Even code comments are translated:
+
+<CodeGroup>
+  ```html Spanish
+  <!-- Esto no es válido según los estándares HTML5 -->
+  <p>
+    <div>Contenido de ejemplo</div>
+  </p>
+  ```
+
+  ```html English
+  <!-- This is not valid according to HTML5 standards -->
+  <p>
+    <div>Sample content</div>
+  </p>
+  ```
+</CodeGroup>
+
+## Nesting Rules Guide Translation
+
+The comprehensive nesting rules modal is fully translated, including:
+
+### Section Headings
+
+- Element categories
+- Specific nesting rules by element
+- Best practices for valid HTML
+- Common patterns to avoid
+- Validation tools
+
+### Category Descriptions
+
+<Tabs>
+  <Tab title="Block Elements">
+    **Spanish**: Los elementos de bloque establecen la estructura del documento.
+    
+    **English**: Block elements establish the document structure.
+  </Tab>
+
+  <Tab title="Inline Elements">
+    **Spanish**: Los elementos en línea fluyen dentro del texto sin crear saltos de línea.
+    
+    **English**: Inline elements flow within text without creating line breaks.
+  </Tab>
+
+  <Tab title="Void Elements">
+    **Spanish**: Los elementos vacíos no tienen cierre y no pueden contener contenido.
+    
+    **English**: Void elements don't have closing tags and cannot contain any content.
+  </Tab>
+</Tabs>
+
+### Element-Specific Rules
+
+Each element's rules include translated descriptions:
+
+<Accordion title="Paragraph (<p>) Example">
+  <Tabs>
+    <Tab title="Spanish">
+      - **Pueden contener**: Solo contenido en línea (texto y elementos en línea)
+      - **No pueden contener**: Elementos de bloque
+    </Tab>
+
+    <Tab title="English">
+      - **Can contain**: Inline elements and text only
+      - **Cannot contain**: Block elements
+    </Tab>
+  </Tabs>
+</Accordion>
+
+## Accessibility Features
+
+Language switching includes proper accessibility support:
+
+### ARIA Attributes
+
+```html
+<button class="language-option active" 
+        data-lang="es" 
+        type="button" 
+        aria-pressed="true">ES</button>
+```
+
+- `aria-pressed="true"` indicates the active language
+- Language buttons update screen reader announcements
+- `lang` attribute on `<html>` updates to match selection
+
+### HTML Lang Attribute
+
+When you switch languages:
+
+```html
+<!-- Spanish -->
+<html lang="es">
+
+<!-- English -->
+<html lang="en">
+```
+
+This ensures:
+- Screen readers use the correct pronunciation
+- Browser translation features work properly
+- Search engines index the correct language
+
+## Default Language Behavior
+
+The validator determines your initial language using this priority:
+
+<Steps>
+  <Step title="URL parameter">
+    If `?lang=en` or `?lang=es` is in the URL, that language is used.
+  </Step>
+
+  <Step title="Default to Spanish">
+    If no URL parameter exists, Spanish (ES) is the default language.
+  </Step>
+
+  <Step title="Invalid values">
+    If the URL contains an invalid language code, it defaults to Spanish.
+  </Step>
+</Steps>
+
+<Tip>
+  The default language is Spanish because this tool was created for the Spanish-speaking web development community at aprendoeasy.com.
+</Tip>
+
+## Language Persistence
+
+Your language choice is maintained throughout your session:
+
+- **URL updates**: Every validation updates the URL with your current language
+- **Page navigation**: Bookmarked URLs preserve the language setting
+- **Shared links**: When you share a validation link, the language is included
+
+```
+https://example.com/index.html?parent=div&child=p&lang=en
+```
+
+<Note>
+  Language preference is stored in the URL, not in cookies or localStorage, ensuring privacy and making links fully shareable.
+</Note>

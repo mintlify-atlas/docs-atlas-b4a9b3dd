@@ -1,0 +1,147 @@
+---
+title: 'Validating HTML Tags'
+description: 'Learn how to use the HTML Tags Checker validator interface to verify tag nesting'
+---
+
+The HTML Tags Checker provides a simple, intuitive interface for validating whether one HTML tag can contain another according to W3C standards.
+
+## Using the Validator Form
+
+The validator consists of two input fields and a validation button:
+
+<Steps>
+  <Step title="Enter the parent tag">
+    Type the parent HTML tag name in the **Parent Tag** field. For example, `div`, `p`, or `button`.
+    
+    <Note>
+      Enter only the tag name without angle brackets. Use `div` instead of `<div>`.
+    </Note>
+  </Step>
+
+  <Step title="Enter the child tag">
+    Type the child HTML tag name in the **Child Tag** field. This is the tag you want to nest inside the parent.
+  </Step>
+
+  <Step title="Click Validate">
+    Click the **Validate** button to check if the nesting combination is valid according to HTML5 standards.
+  </Step>
+</Steps>
+
+## Understanding Validation Results
+
+After clicking Validate, you'll receive one of three result types:
+
+<Tabs>
+  <Tab title="Allowed">
+    A green checkmark (✓) indicates the nesting is **valid** according to HTML5 standards.
+
+    **Example:**
+    ```html
+    <div>
+      <p>Sample content</p>
+    </div>
+    ```
+
+    The result includes:
+    - A clear "Allowed" message
+    - Explanation of why this combination is valid
+    - Code example showing proper usage
+  </Tab>
+
+  <Tab title="Not Allowed">
+    A red X (✗) indicates the nesting is **invalid** and violates HTML5 standards.
+
+    **Example:**
+    ```html
+    <!-- This is not valid according to HTML5 standards -->
+    <p>
+      <div>Sample content</div>
+    </p>
+    ```
+
+    The result includes:
+    - A clear "Not allowed" message
+    - Explanation of the specific rule violation
+    - Code example marked as invalid
+  </Tab>
+
+  <Tab title="Warning">
+    A yellow warning symbol (⚠) indicates the nesting is **technically allowed** but may have special considerations.
+
+    **Example scenarios:**
+    - No specific rules defined for this combination
+    - Generally permitted but use with caution
+    - May work but isn't common practice
+  </Tab>
+</Tabs>
+
+## Validation Messages
+
+The validator provides detailed, context-specific messages explaining why a combination is or isn't allowed:
+
+### Common Valid Scenarios
+
+- **Block elements containing others**: "The `<div>` tag is a block element and can contain block or inline elements like `<p>`."
+- **Inline elements with inline content**: "The `<span>` tag is an inline element and can contain other inline elements like `<strong>`."
+- **Specific allowed rules**: "The `<ul>` tag can contain `<li>` according to specific HTML5 rules."
+
+### Common Invalid Scenarios
+
+- **Void elements as parents**: "The `<img>` tag is a void element and cannot contain child elements."
+- **Block in inline**: "The `<span>` tag is an inline element and cannot contain block elements like `<div>` according to HTML5 standards."
+- **Interactive nesting restrictions**: "The `<button>` tag cannot contain block elements like `<div>` according to HTML5 standards."
+
+## Code Examples
+
+Every validation result includes a code example showing:
+
+<Accordion title="For valid combinations">
+  ```html
+  <parentTag>
+    <childTag>Sample content</childTag>
+  </parentTag>
+  ```
+  
+  These examples demonstrate proper usage you can copy into your projects.
+</Accordion>
+
+<Accordion title="For invalid combinations">
+  ```html
+  <!-- This is not valid according to HTML5 standards -->
+  <parentTag>
+    <childTag>Sample content</childTag>
+  </parentTag>
+  ```
+  
+  These examples are marked with comments to warn against their use.
+</Accordion>
+
+## URL Parameters
+
+You can share specific validations using URL parameters:
+
+```
+index.html?parent=div&child=p&lang=en
+```
+
+The validator automatically:
+- Loads the specified parent and child tags
+- Sets the language preference
+- Runs the validation immediately
+- Updates the URL when you validate new combinations
+
+<Tip>
+  This makes it easy to share validation results with team members or bookmark frequently-checked combinations.
+</Tip>
+
+## Viewing Nesting Rules
+
+Click the **View nesting rules** button to access a comprehensive guide covering:
+
+- Element categories (block, inline, void)
+- Specific nesting rules by element type
+- Best practices for valid HTML
+- Common patterns to avoid
+- W3C validation tool links
+
+This reference guide provides in-depth documentation without leaving the validator interface.

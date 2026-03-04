@@ -1,97 +1,282 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "HTML Tags Checker"
+mode: "custom"
 ---
 
-## Setting up
+<div className="relative overflow-hidden bg-gradient-to-br from-[#2f8ecd] via-[#058bcf] to-[#1a5c87] dark:from-[#1a5c87] dark:via-[#2f8ecd] dark:to-[#058bcf] py-20 lg:py-28">
+  <div className="max-w-6xl mx-auto px-6 lg:px-8">
+    <div className="grid lg:grid-cols-12 gap-8 items-center">
+      <div className="lg:col-span-7">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+          Validate HTML Tag Nesting with Confidence
+        </h1>
+        <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl">
+          A web-based tool to validate and verify HTML tag nesting according to W3C standards. Perfect for learning and ensuring your HTML code is clean and error-free.
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <a
+            href="/quickstart"
+            className="inline-flex items-center px-6 py-3 rounded-lg bg-[#f5a623] hover:bg-[#e09612] text-white font-semibold transition-colors"
+          >
+            Get Started
+          </a>
+          <a
+            href="/introduction"
+            className="inline-flex items-center px-6 py-3 rounded-lg border border-white/30 bg-white/10 hover:bg-white/20 text-white font-semibold transition-colors"
+          >
+            Learn More
+          </a>
+        </div>
+      </div>
+      <div className="lg:col-span-5 hidden lg:flex justify-center">
+        <div className="relative w-full max-w-md">
+          <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-2xl"></div>
+          <div className="relative p-8 text-white">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-400/20 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <code className="text-sm font-mono">&lt;div&gt; → &lt;p&gt;</code>
+                  <p className="text-xs text-white/70 mt-1">Valid nesting</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-400/20 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <code className="text-sm font-mono">&lt;p&gt; → &lt;div&gt;</code>
+                  <p className="text-xs text-white/70 mt-1">Invalid nesting</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-400/20 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <code className="text-sm font-mono">&lt;a&gt; → &lt;button&gt;</code>
+                  <p className="text-xs text-white/70 mt-1">Check details</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-Get your documentation site up and running in minutes.
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="text-center mb-12">
+    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Quick Start</h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400">Get started with HTML Tags Checker in three simple steps</p>
+  </div>
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+  <Steps>
+    <Step title="Open the Tool">
+      Visit the HTML Tags Checker by opening `index.html` in your web browser. No installation or setup required — it runs entirely in your browser.
+      
+      ```bash
+      # Clone the repository
+      git clone https://github.com/DanielVillalbaD/HTML-tags-checker.git
+      cd HTML-tags-checker
+      
+      # Open index.html in your browser
+      open index.html
+      ```
+    </Step>
+    
+    <Step title="Enter Tags to Validate">
+      Type the parent tag in the first input field and the child tag in the second input field. Then click **Validate** to check if the nesting is valid.
+      
+      <Note>
+        Tag names are case-insensitive. You can enter `div`, `DIV`, or `Div` — they all work the same.
+      </Note>
+    </Step>
+    
+    <Step title="Review the Results">
+      The tool will display whether the nesting is valid, invalid, or allowed with a warning. You'll also see a detailed explanation and a code example.
+      
+      <Accordion title="Example validation result">
+        When you validate `<div>` containing `<p>`, you'll see:
+        - ✓ **Allowed** — The `<div>` tag is a block element and can contain block or inline elements like `<p>`.
+        - A code example showing proper usage
+        - Links to the nesting rules reference for more details
+      </Accordion>
+    </Step>
+  </Steps>
+</div>
 
-## Make it yours
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="text-center mb-12">
+    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Key Features</h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400">Everything you need to validate HTML tag nesting</p>
+  </div>
 
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
+  <CardGroup cols={2}>
     <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
+      title="W3C Standards"
+      icon="shield-check"
+      href="/concepts/html-nesting-rules"
+    >
+      Validates tag nesting according to official W3C HTML5 standards and specifications.
+    </Card>
+    <Card
+      title="Bilingual Support"
+      icon="language"
+      href="/usage/language-support"
+    >
+      Full interface in both Spanish and English with instant language switching.
+    </Card>
+    <Card
+      title="Real-time Validation"
+      icon="bolt"
+      href="/usage/validating-tags"
+    >
+      Instant feedback with detailed explanations and code examples for every validation.
+    </Card>
+    <Card
+      title="Comprehensive Reference"
+      icon="book-open"
+      href="/reference/nesting-rules"
+    >
+      Complete guide to HTML5 element categories and nesting rules with examples.
+    </Card>
+    <Card
+      title="URL Parameters"
+      icon="link"
+      href="/developer/url-parameters"
+    >
+      Share validations using URL parameters for easy collaboration and documentation.
+    </Card>
+    <Card
+      title="Accessible Design"
+      icon="universal-access"
+      href="/reference/best-practices"
+    >
+      Built with ARIA labels and keyboard navigation for full accessibility support.
+    </Card>
+  </CardGroup>
+</div>
 
-## Create beautiful pages
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="text-center mb-12">
+    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Explore the Documentation</h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400">Learn how to use and integrate HTML Tags Checker</p>
+  </div>
 
-Everything you need to create world-class documentation.
+  <div className="grid md:grid-cols-2 gap-6">
+    <a href="/concepts/html-nesting-rules" className="group block rounded-2xl border border-gray-200 dark:border-[#27272a] hover:border-[#2f8ecd] dark:hover:border-[#2f8ecd] overflow-hidden transition-colors no-underline">
+      <div className="h-32 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-[#1a1d27] dark:to-[#242838] flex items-center justify-center overflow-hidden">
+        <svg className="w-16 h-16 text-[#2f8ecd]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </div>
+      <div className="p-6 bg-white dark:bg-[#1a1d27]">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">Core Concepts</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+          Understand HTML nesting rules, element categories, and validation logic.
+        </p>
+        <div className="flex items-center text-sm text-[#2f8ecd] group-hover:text-[#058bcf]">
+          Learn more
+          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+    <a href="/usage/validating-tags" className="group block rounded-2xl border border-gray-200 dark:border-[#27272a] hover:border-[#2f8ecd] dark:hover:border-[#2f8ecd] overflow-hidden transition-colors no-underline">
+      <div className="h-32 bg-gradient-to-br from-green-50 to-green-100 dark:from-[#1a1d27] dark:to-[#242838] flex items-center justify-center overflow-hidden">
+        <svg className="w-16 h-16 text-[#2f8ecd]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+        </svg>
+      </div>
+      <div className="p-6 bg-white dark:bg-[#1a1d27]">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">Usage Guide</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+          Learn how to validate tags, switch languages, and explore common examples.
+        </p>
+        <div className="flex items-center text-sm text-[#2f8ecd] group-hover:text-[#058bcf]">
+          Get started
+          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
 
-## Need inspiration?
+    <a href="/reference/supported-elements" className="group block rounded-2xl border border-gray-200 dark:border-[#27272a] hover:border-[#2f8ecd] dark:hover:border-[#2f8ecd] overflow-hidden transition-colors no-underline">
+      <div className="h-32 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-[#1a1d27] dark:to-[#242838] flex items-center justify-center overflow-hidden">
+        <svg className="w-16 h-16 text-[#2f8ecd]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      </div>
+      <div className="p-6 bg-white dark:bg-[#1a1d27]">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">Reference</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+          Complete reference for supported elements, nesting rules, and best practices.
+        </p>
+        <div className="flex items-center text-sm text-[#2f8ecd] group-hover:text-[#058bcf]">
+          View reference
+          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+    <a href="/developer/integration" className="group block rounded-2xl border border-gray-200 dark:border-[#27272a] hover:border-[#2f8ecd] dark:hover:border-[#2f8ecd] overflow-hidden transition-colors no-underline">
+      <div className="h-32 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-[#1a1d27] dark:to-[#242838] flex items-center justify-center overflow-hidden">
+        <svg className="w-16 h-16 text-[#2f8ecd]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+      </div>
+      <div className="p-6 bg-white dark:bg-[#1a1d27]">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">Developer Guide</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+          Integrate the tool into your workflow and contribute to the project.
+        </p>
+        <div className="flex items-center text-sm text-[#2f8ecd] group-hover:text-[#058bcf]">
+          Explore
+          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div className="mt-20 mb-16 max-w-5xl mx-auto px-6">
+  <div className="rounded-2xl bg-gradient-to-br from-[#2f8ecd] to-[#058bcf] dark:from-[#1a5c87] dark:to-[#2f8ecd] p-8 lg:p-12 text-center">
+    <h2 className="text-3xl font-bold text-white mb-4">Ready to Validate Your HTML?</h2>
+    <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+      Start using HTML Tags Checker today to ensure your HTML is clean, valid, and follows W3C standards.
+    </p>
+    <div className="flex flex-col sm:flex-row justify-center gap-4">
+      <a
+        href="/quickstart"
+        className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white hover:bg-gray-100 text-[#2f8ecd] font-semibold transition-colors"
+      >
+        Get Started
+      </a>
+      <a
+        href="https://github.com/DanielVillalbaD/HTML-tags-checker"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-white/30 bg-white/10 hover:bg-white/20 text-white font-semibold transition-colors"
+      >
+        View on GitHub
+      </a>
+    </div>
+  </div>
+</div>

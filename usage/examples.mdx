@@ -1,0 +1,516 @@
+---
+title: 'Validation Examples'
+description: 'Real-world examples of valid and invalid HTML tag nesting from the validator'
+---
+
+Explore practical examples of HTML tag validation based on the validator's rules engine. These examples demonstrate common scenarios you'll encounter when building web pages.
+
+## Block Element Examples
+
+Block elements form the structural foundation of HTML documents.
+
+### Valid Block Nesting
+
+<AccordionGroup>
+  <Accordion title="Div containing Paragraph">
+    **Validation**: `<div>` can contain `<p>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: The `<div>` tag is a block element and can contain block or inline elements like `<p>`.
+    
+    ```html
+    <div>
+      <p>Sample content</p>
+    </div>
+    ```
+    
+    **Use case**: Standard content wrapper structure
+  </Accordion>
+
+  <Accordion title="Section containing Headers">
+    **Validation**: `<section>` can contain `<h1>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: The `<section>` tag is a block element and can contain block or inline elements like `<h1>`.
+    
+    ```html
+    <section>
+      <h1>Section Title</h1>
+      <p>Section content...</p>
+    </section>
+    ```
+    
+    **Use case**: Semantic document structure
+  </Accordion>
+
+  <Accordion title="Article with Complex Structure">
+    **Validation**: `<article>` can contain `<header>`, `<section>`, `<footer>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: Block elements can contain other block elements for nested structures.
+    
+    ```html
+    <article>
+      <header>
+        <h1>Article Title</h1>
+      </header>
+      <section>
+        <p>Article content...</p>
+      </section>
+      <footer>
+        <p>Published: Date</p>
+      </footer>
+    </article>
+    ```
+    
+    **Use case**: Blog posts, news articles, documentation pages
+  </Accordion>
+</AccordionGroup>
+
+### Invalid Block Nesting
+
+<AccordionGroup>
+  <Accordion title="Paragraph containing Div">
+    **Validation**: `<p>` cannot contain `<div>`
+    
+    **Result**: ✗ Not allowed
+    
+    **Explanation**: Paragraphs can only contain inline elements according to specific HTML5 rules.
+    
+    ```html
+    <!-- This is not valid according to HTML5 standards -->
+    <p>
+      <div>This is wrong</div>
+    </p>
+    ```
+    
+    **Why it fails**: `<p>` has specific rules limiting it to inline content only.
+  </Accordion>
+
+  <Accordion title="Span containing Div">
+    **Validation**: `<span>` cannot contain `<div>`
+    
+    **Result**: ✗ Not allowed
+    
+    **Explanation**: The `<span>` tag is an inline element and cannot contain block elements like `<div>` according to HTML5 standards.
+    
+    ```html
+    <!-- This is not valid according to HTML5 standards -->
+    <span>
+      <div>Block content</div>
+    </span>
+    ```
+    
+    **Why it fails**: Inline elements cannot contain block elements.
+  </Accordion>
+</AccordionGroup>
+
+## Interactive Element Examples
+
+Interactive elements like links, buttons, and labels have special nesting restrictions.
+
+### Valid Interactive Nesting
+
+<AccordionGroup>
+  <Accordion title="Link with Inline Content">
+    **Validation**: `<a>` can contain `<span>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: The `<a>` tag can contain inline elements like `<span>`.
+    
+    ```html
+    <a href="#">
+      Text with <span>formatting</span>
+    </a>
+    ```
+    
+    **Use case**: Styled links with icons or emphasis
+  </Accordion>
+
+  <Accordion title="Button with Icon">
+    **Validation**: `<button>` can contain `<span>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: Buttons can contain inline elements and text.
+    
+    ```html
+    <button>
+      Click me <span class="icon">→</span>
+    </button>
+    ```
+    
+    **Use case**: Buttons with icons or styled text
+  </Accordion>
+
+  <Accordion title="Label with Input">
+    **Validation**: `<label>` can contain `<input>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: Labels can wrap form controls for accessibility.
+    
+    ```html
+    <label>
+      Email: <input type="email" name="email">
+    </label>
+    ```
+    
+    **Use case**: Accessible form fields with implicit association
+  </Accordion>
+</AccordionGroup>
+
+### Invalid Interactive Nesting
+
+<AccordionGroup>
+  <Accordion title="Link containing Div">
+    **Validation**: `<a>` cannot contain `<div>`
+    
+    **Result**: ✗ Not allowed
+    
+    **Explanation**: The `<a>` tag cannot contain block elements like `<div>` according to HTML5 standards.
+    
+    ```html
+    <!-- This is not valid according to HTML5 standards -->
+    <a href="#">
+      <div>Block content</div>
+    </a>
+    ```
+    
+    **Why it fails**: Links should contain phrasing content (inline), not block elements.
+  </Accordion>
+
+  <Accordion title="Button containing Div">
+    **Validation**: `<button>` cannot contain `<div>`
+    
+    **Result**: ✗ Not allowed
+    
+    **Explanation**: The `<button>` tag cannot contain block elements like `<div>` according to HTML5 standards.
+    
+    ```html
+    <!-- This is not valid according to HTML5 standards -->
+    <button>
+      <div>Content</div>
+    </button>
+    ```
+    
+    **Why it fails**: Buttons cannot contain interactive or block elements.
+  </Accordion>
+</AccordionGroup>
+
+## List Element Examples
+
+Lists have strict parent-child relationships defined by HTML5 specifications.
+
+### Valid List Nesting
+
+<AccordionGroup>
+  <Accordion title="Unordered List with Items">
+    **Validation**: `<ul>` can contain `<li>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: The `<ul>` tag can contain `<li>` according to specific HTML5 rules.
+    
+    ```html
+    <ul>
+      <li>First item</li>
+      <li>Second item</li>
+    </ul>
+    ```
+    
+    **Use case**: Standard unordered lists
+  </Accordion>
+
+  <Accordion title="List Item with Paragraph">
+    **Validation**: `<li>` can contain `<p>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: List items can contain block or inline elements.
+    
+    ```html
+    <li>
+      <p>Paragraph content</p>
+      <p>Another paragraph</p>
+    </li>
+    ```
+    
+    **Use case**: Complex list items with multiple paragraphs
+  </Accordion>
+
+  <Accordion title="Definition List">
+    **Validation**: `<dl>` can contain `<dt>` and `<dd>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: Definition lists follow specific nesting rules.
+    
+    ```html
+    <dl>
+      <dt>HTML</dt>
+      <dd>HyperText Markup Language</dd>
+      <dt>CSS</dt>
+      <dd>Cascading Style Sheets</dd>
+    </dl>
+    ```
+    
+    **Use case**: Glossaries, term definitions, key-value pairs
+  </Accordion>
+</AccordionGroup>
+
+### Invalid List Nesting
+
+<AccordionGroup>
+  <Accordion title="List with Direct Text">
+    **Validation**: `<ul>` cannot contain text nodes directly
+    
+    **Result**: ✗ Not allowed
+    
+    **Explanation**: Unordered lists can only contain `<li>` elements as direct children.
+    
+    ```html
+    <!-- This is not valid according to HTML5 standards -->
+    <ul>
+      Text directly in list
+      <li>Item</li>
+    </ul>
+    ```
+    
+    **Why it fails**: Lists must only have `<li>` elements as direct children.
+  </Accordion>
+</AccordionGroup>
+
+## Void Element Examples
+
+Void elements are self-closing and cannot contain any content.
+
+<AccordionGroup>
+  <Accordion title="Image as Void Element">
+    **Validation**: `<img>` cannot contain any element
+    
+    **Result**: ✗ Not allowed
+    
+    **Explanation**: The `<img>` tag is a void element and cannot contain child elements.
+    
+    ```html
+    <!-- Images are self-closing -->
+    <img src="photo.jpg" alt="Description">
+    ```
+    
+    **Why**: Void elements have no content model.
+  </Accordion>
+
+  <Accordion title="Input as Void Element">
+    **Validation**: `<input>` cannot contain any element
+    
+    **Result**: ✗ Not allowed
+    
+    **Explanation**: The `<input>` tag is a void element and cannot contain child elements.
+    
+    ```html
+    <!-- Inputs are self-closing -->
+    <input type="text" name="username">
+    ```
+    
+    **Why**: Form inputs are void elements.
+  </Accordion>
+
+  <Accordion title="Div containing Image">
+    **Validation**: `<div>` can contain `<img>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: The `<div>` tag can contain the void element `<img>`.
+    
+    ```html
+    <div>
+      <img src="photo.jpg" alt="Description">
+    </div>
+    ```
+    
+    **Why**: Block elements can contain void elements.
+  </Accordion>
+</AccordionGroup>
+
+## Table Element Examples
+
+Tables have strict structural requirements defined by HTML5.
+
+<AccordionGroup>
+  <Accordion title="Table Structure">
+    **Validation**: `<table>` can contain `<thead>`, `<tbody>`, `<tr>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: Tables follow specific semantic structure rules.
+    
+    ```html
+    <table>
+      <caption>Sales Data</caption>
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Sales</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>January</td>
+          <td>$1000</td>
+        </tr>
+      </tbody>
+    </table>
+    ```
+    
+    **Use case**: Data tables with proper semantics
+  </Accordion>
+
+  <Accordion title="Table Row with Cells">
+    **Validation**: `<tr>` can contain `<td>` and `<th>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: Rows can only contain table cells.
+    
+    ```html
+    <tr>
+      <th>Header 1</th>
+      <td>Data 1</td>
+      <td>Data 2</td>
+    </tr>
+    ```
+    
+    **Use case**: Table rows with mixed header and data cells
+  </Accordion>
+
+  <Accordion title="Table Cell with Content">
+    **Validation**: `<td>` can contain `<p>`, `<span>`, etc.
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: Table cells can contain block or inline elements.
+    
+    ```html
+    <td>
+      <p>Paragraph content</p>
+      <span>Inline content</span>
+    </td>
+    ```
+    
+    **Use case**: Rich content within table cells
+  </Accordion>
+</AccordionGroup>
+
+## Form Element Examples
+
+Forms and their controls have specific nesting rules for accessibility.
+
+<AccordionGroup>
+  <Accordion title="Form with Fieldset">
+    **Validation**: `<form>` can contain `<fieldset>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: Forms can contain grouping elements for better organization.
+    
+    ```html
+    <form action="/submit" method="POST">
+      <fieldset>
+        <legend>Personal Information</legend>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+      </fieldset>
+      <button type="submit">Submit</button>
+    </form>
+    ```
+    
+    **Use case**: Accessible form grouping
+  </Accordion>
+
+  <Accordion title="Select with Options">
+    **Validation**: `<select>` can contain `<option>` and `<optgroup>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: Select elements follow specific content rules.
+    
+    ```html
+    <select name="category">
+      <optgroup label="Fruits">
+        <option>Apple</option>
+        <option>Banana</option>
+      </optgroup>
+    </select>
+    ```
+    
+    **Use case**: Dropdown menus with option groups
+  </Accordion>
+</AccordionGroup>
+
+## Media Element Examples
+
+Multimedia elements have specific content models for sources and fallbacks.
+
+<AccordionGroup>
+  <Accordion title="Video with Sources">
+    **Validation**: `<video>` can contain `<source>` and `<track>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: Video elements can contain source elements and text fallbacks.
+    
+    ```html
+    <video controls width="320" height="240">
+      <source src="video.mp4" type="video/mp4">
+      <source src="video.webm" type="video/webm">
+      Your browser doesn't support HTML5 video.
+    </video>
+    ```
+    
+    **Use case**: Responsive video with multiple formats
+  </Accordion>
+
+  <Accordion title="Picture with Sources">
+    **Validation**: `<picture>` can contain `<source>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: Picture elements contain sources for responsive images.
+    
+    ```html
+    <picture>
+      <source media="(min-width: 1200px)" srcset="large.jpg">
+      <source media="(min-width: 768px)" srcset="medium.jpg">
+      <img src="small.jpg" alt="Description">
+    </picture>
+    ```
+    
+    **Use case**: Art direction and responsive images
+  </Accordion>
+
+  <Accordion title="Details with Summary">
+    **Validation**: `<details>` can contain `<summary>`
+    
+    **Result**: ✓ Allowed
+    
+    **Explanation**: Details elements can contain summary and other content.
+    
+    ```html
+    <details open>
+      <summary>Click to expand</summary>
+      <p>Hidden content revealed when expanded.</p>
+    </details>
+    ```
+    
+    **Use case**: Expandable/collapsible content sections
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  All examples are extracted from the validator's actual rule engine and represent real validation scenarios you'll encounter when using the tool.
+</Note>

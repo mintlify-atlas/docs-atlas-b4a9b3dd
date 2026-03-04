@@ -1,0 +1,488 @@
+---
+title: 'Customization'
+description: 'Customize the appearance and behavior of HTML Tags Checker'
+---
+
+## Overview
+
+HTML Tags Checker is built with customization in mind. You can modify the appearance using CSS variables, extend translations, or fork the code to add new features.
+
+## CSS Variables
+
+The entire color scheme and styling is controlled by CSS custom properties (variables) defined in the `:root` selector. You can override these to match your brand or design system.
+
+### Color Scheme
+
+Override these variables in your own stylesheet:
+
+```css
+:root {
+  /* Primary colors */
+  --primary-color: #2563eb;       /* Main brand color */
+  --primary-hover: #0d4ed8;       /* Hover state */
+  
+  /* Status colors */
+  --success-color: #006947;       /* Valid nesting */
+  --error-color: #ef4444;         /* Invalid nesting */
+  --warning-color: #f59e0b;       /* Warnings */
+  
+  /* Background and text */
+  --bg-color: #f8fafc;            /* Page background */
+  --text-color: #1e293b;          /* Primary text */
+  --text-secondary: #64748b;      /* Secondary text */
+  --border-color: #e2e8f0;        /* Borders */
+  --card-bg: #ffffff;             /* Card backgrounds */
+  
+  /* Shadows */
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  
+  /* Effects */
+  --modal-overlay: rgba(15, 23, 42, 0.6);
+  --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.3);
+}
+```
+
+### Example: Dark Theme
+
+Create a dark theme by overriding the color variables:
+
+```css
+/* Add this after including styles.css */
+:root {
+  --bg-color: #0f172a;
+  --text-color: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --card-bg: #1e293b;
+  --primary-color: #60a5fa;
+  --primary-hover: #3b82f6;
+  --success-color: #10b981;
+  --error-color: #f87171;
+  --warning-color: #fbbf24;
+}
+```
+
+### Example: Custom Brand Colors
+
+Match your company's brand:
+
+```css
+:root {
+  /* Using your brand colors */
+  --primary-color: #8b5cf6;       /* Purple brand */
+  --primary-hover: #7c3aed;
+  --success-color: #059669;
+  --error-color: #dc2626;
+}
+```
+
+## Component Customization
+
+### Cards
+
+Customize the card appearance:
+
+```css
+.card {
+  border-radius: 20px;            /* Rounder corners */
+  padding: 3rem;                  /* More padding */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+```
+
+### Buttons
+
+Customize button styles:
+
+```css
+button {
+  border-radius: 50px;            /* Pill-shaped buttons */
+  padding: 1rem 3rem;             /* Larger buttons */
+  font-weight: 700;               /* Bolder text */
+  text-transform: uppercase;      /* All caps */
+  letter-spacing: 1px;            /* Spacing */
+}
+```
+
+### Input Fields
+
+Customize form inputs:
+
+```css
+input {
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  font-size: 1.1rem;
+  background-color: white;
+}
+
+input:focus {
+  border-color: var(--primary-color);
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+```
+
+### Results Display
+
+Customize validation results:
+
+```css
+.result.valid {
+  background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+  border: none;
+  box-shadow: var(--shadow-lg);
+}
+
+.result.invalid {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  border: none;
+}
+```
+
+## Typography Customization
+
+### Fonts
+
+Change the font family:
+
+```css
+/* Import a custom font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Monospace font for code */
+.example-code,
+code,
+pre {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+```
+
+### Headings
+
+Customize heading styles:
+
+```css
+h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+```
+
+## Translation Customization
+
+Add or modify translations by editing the `translations` object in `index.js`:
+
+### Adding a New Language
+
+```javascript
+const translations = {
+    // Existing languages...
+    es: { /* ... */ },
+    en: { /* ... */ },
+    
+    // Add French
+    fr: {
+        title: "Validateur de balises HTML",
+        subtitle: "Vérifiez si une balise HTML peut en contenir une autre selon les normes W3C",
+        parentLabel: "Balise parente",
+        childLabel: "Balise enfant",
+        validateButton: "Valider",
+        exampleTitle: "Exemple de code:",
+        // ... add all other keys
+    }
+};
+```
+
+Then update the language selector in your HTML to include the new option.
+
+### Modifying Existing Messages
+
+Customize validation messages:
+
+```javascript
+translations.en.messages = {
+    // Original
+    voidParent: "The <{parent}> tag is a void element and cannot contain child elements.",
+    
+    // Customized for friendlier tone
+    voidParent: "Oops! The <{parent}> tag can't have any children—it's a void element.",
+    
+    // Add emoji
+    voidParent: "❌ The <{parent}> tag is a void element and cannot contain child elements."
+};
+```
+
+## Modal Customization
+
+### Modal Appearance
+
+```css
+.modal {
+  max-width: 1200px;              /* Wider modal */
+  border-radius: 24px;            /* Rounder corners */
+  border: 2px solid var(--primary-color);
+}
+
+.modal-header {
+  background: var(--primary-color);
+  color: white;
+}
+
+.modal-body {
+  padding: 3rem;
+  line-height: 1.8;               /* More spacing */
+}
+```
+
+### Modal Overlay
+
+```css
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.8);  /* Darker overlay */
+  backdrop-filter: blur(8px);             /* Blur background */
+}
+```
+
+## Animation Customization
+
+### Disable Animations
+
+For users who prefer reduced motion:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+```
+
+### Custom Animations
+
+Add your own animations:
+
+```css
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.card {
+  animation: slideInRight 0.6s ease-out;
+}
+```
+
+## Responsive Customization
+
+### Mobile-First Adjustments
+
+Customize the mobile experience:
+
+```css
+@media (max-width: 640px) {
+  h1 {
+    font-size: 2rem;              /* Smaller on mobile */
+  }
+  
+  .card {
+    padding: 1rem;                /* Less padding */
+    border-radius: 12px;          /* Less rounding */
+  }
+  
+  .modal {
+    width: 100%;                  /* Full width */
+    max-height: 100vh;            /* Full height */
+    border-radius: 0;             /* No rounding */
+  }
+}
+```
+
+## Advanced Customization
+
+### Custom Validation Rules
+
+Extend the `htmlNestingRules` object to add custom elements:
+
+```javascript
+// Add custom web components
+htmlNestingRules.specificRules['custom-card'] = ['block', 'inline'];
+htmlNestingRules.specificRules['custom-button'] = ['inline', 'text'];
+
+// Add them to the appropriate category
+htmlNestingRules.blockElements.push('custom-card');
+htmlNestingRules.inlineElements.push('custom-button');
+```
+
+### Custom Validation Logic
+
+Modify the `canContain()` function to add special cases:
+
+```javascript
+function canContain(parentTag, childTag) {
+    // Add custom logic before standard validation
+    if (parentTag === 'my-custom-element') {
+        return {
+            valid: true,
+            message: 'Custom element allows all children',
+            warning: false
+        };
+    }
+    
+    // Continue with standard validation...
+    const parentType = getElementType(parentTag);
+    // ... rest of function
+}
+```
+
+### Event Hooks
+
+Add custom event listeners:
+
+```javascript
+// Listen for validation events
+document.getElementById('validatorForm').addEventListener('submit', function(e) {
+    const parent = document.getElementById('parentTag').value;
+    const child = document.getElementById('childTag').value;
+    
+    // Custom analytics
+    console.log('Validation performed:', { parent, child });
+    
+    // Send to analytics service
+    if (window.gtag) {
+        gtag('event', 'validation', {
+            parent_tag: parent,
+            child_tag: child
+        });
+    }
+});
+```
+
+## Complete Custom Theme Example
+
+Here's a complete example of a custom theme:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Tags Checker - Custom Theme</title>
+    
+    <!-- Original stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Custom overrides -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary-color: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --bg-color: #fafafa;
+            --card-bg: #ffffff;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .card {
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        button {
+            border-radius: 8px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Your HTML here -->
+</body>
+</html>
+```
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use CSS variables for consistency">
+    Always use CSS variables instead of hardcoding colors. This makes theme switching easier:
+    
+    ```css
+    /* Good */
+    .custom-element {
+      color: var(--primary-color);
+    }
+    
+    /* Avoid */
+    .custom-element {
+      color: #2563eb;
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Test accessibility">
+    Ensure sufficient color contrast when customizing:
+    
+    - Text should have at least 4.5:1 contrast ratio
+    - Use tools like WebAIM Contrast Checker
+    - Test with screen readers
+  </Accordion>
+
+  <Accordion title="Maintain responsive design">
+    When customizing, ensure your changes work on all screen sizes:
+    
+    ```css
+    .custom-element {
+      font-size: 1rem;
+    }
+    
+    @media (max-width: 640px) {
+      .custom-element {
+        font-size: 0.875rem;
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Keep performance in mind">
+    Avoid heavy animations or large background images that could slow down the tool:
+    
+    - Use `transform` and `opacity` for animations (GPU accelerated)
+    - Optimize images and use appropriate formats
+    - Test on lower-end devices
+  </Accordion>
+</AccordionGroup>
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Integration Guide" icon="code" href="/developer/integration">
+    Learn how to integrate the tool
+  </Card>
+  <Card title="URL Parameters" icon="link" href="/developer/url-parameters">
+    URL parameter reference
+  </Card>
+</CardGroup>
